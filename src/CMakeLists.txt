@@ -1,0 +1,39 @@
+SET(MAIN_SOURCES
+  main.cpp
+  Controler/Controler.cpp
+  Controler/Keyboard.cpp
+  Controler/Mouse.cpp
+  Painter/PainterGL2.cpp
+  Painter/CameraGL2.cpp
+  Painter/Sprite.cpp
+  SDL/SDL_OpenGL.cpp
+  Utils/Color.cpp
+  Utils/Layer.cpp
+  Utils/Vector2.cpp
+  Utils/Tools.cpp
+  Utils/Exception.cpp
+  Objects/Background.cpp
+  Objects/Model.cpp
+  Objects/Mineral.cpp
+  Objects/Tile.cpp
+  Objects/Tiles.cpp
+  )
+
+SET(MAIN_HEADERS
+    Painter/Painter.hpp
+    Painter/Camera.hpp
+    Painter/Texture.hpp
+    Utils/Action.hpp
+    Utils/Log.hpp
+    Interfaces/LoadInterface.hpp
+    Interfaces/MouseInterface.hpp
+    Interfaces/PaintInterface.hpp
+    Interfaces/TickInterface.hpp
+    )
+
+INCLUDE_DIRECTORIES(.)
+
+ADD_EXECUTABLE(${PROJECT_NAME} ${MAIN_SOURCES} ${MAIN_HEADERS})
+
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${OpenGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${OpenGL_LIBRARIES} ${GLEW_LIBRARIES})
