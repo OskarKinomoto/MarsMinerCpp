@@ -12,6 +12,8 @@
 #include "Controler/Controler.hpp"
 #include "Painter/PainterGL2.hpp"
 #include "Painter/CameraGL2.hpp"
+#include "Painter/Texture.hpp"
+
 using namespace std;
 
 int main() {
@@ -19,7 +21,6 @@ int main() {
   SDL_OpenGL sdl{painter, 2, 1};
   CameraGL2 camera;
   Controler c([&](){sdl.stop();}, camera);
-
   painter.SetUp();
 
   c.Load();

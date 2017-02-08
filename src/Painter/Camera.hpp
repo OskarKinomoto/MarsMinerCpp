@@ -2,8 +2,8 @@
 
 class CameraBase {
 public:
-    int y;
-    int x;
+    int y = 0;
+    int x = 0;
 };
 
 typedef CameraBase& Camera;

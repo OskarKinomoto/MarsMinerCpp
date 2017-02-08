@@ -6,6 +6,7 @@ SET(MAIN_SOURCES
   Painter/PainterGL2.cpp
   Painter/CameraGL2.cpp
   Painter/Sprite.cpp
+  Painter/Texture.cpp
   SDL/SDL_OpenGL.cpp
   Utils/Color.cpp
   Utils/Layer.cpp
@@ -22,7 +23,6 @@ SET(MAIN_SOURCES
 SET(MAIN_HEADERS
     Painter/Painter.hpp
     Painter/Camera.hpp
-    Painter/Texture.hpp
     Utils/Action.hpp
     Utils/Log.hpp
     Interfaces/LoadInterface.hpp
@@ -35,5 +35,10 @@ INCLUDE_DIRECTORIES(.)
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${MAIN_SOURCES} ${MAIN_HEADERS})
 
-INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${OpenGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${OpenGL_LIBRARIES} ${GLEW_LIBRARIES})
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME}
+    ${SDL2_LIBRARIES}
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${PNG_LIBRARIES}
+    )

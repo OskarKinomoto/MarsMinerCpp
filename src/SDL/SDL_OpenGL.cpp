@@ -52,7 +52,7 @@ SDL_OpenGL::SDL_OpenGL(Painter p, int major, int minor) : painter(p) {
   glContext = SDL_GL_CreateContext(static_cast<SDL_Window*>(window));
 
   SetOpenGLAttributes(major, minor);
-  SDL_GL_SetSwapInterval(1);
+  SDL_GL_SetSwapInterval(vsync);
 
 #ifndef __APPLE__
   glewExperimental = GL_TRUE;
@@ -63,14 +63,14 @@ SDL_OpenGL::SDL_OpenGL(Painter p, int major, int minor) : painter(p) {
   LOGVV(glGetString(GL_RENDERER));
   LOGVVV(glGetString(GL_EXTENSIONS));
 
-  p.Resize(800,600);
+  p.Resize(800, 600);
 
   SDL_GL_SwapWindow(static_cast<SDL_Window*>(window));
 }
 
 void SDL_OpenGL::run() {
-    auto ticks = SDL_GetTicks();
-    auto minimumFrameTime = 1000.0f / FPS;
+  auto ticks = SDL_GetTicks();
+  auto minimumFrameTime = 1000.0f / FPS;
   while (loop) {
     eventLoop();
 
@@ -85,26 +85,28 @@ void SDL_OpenGL::run() {
 
     SDL_GL_SwapWindow(static_cast<SDL_Window*>(window));
 
-    auto delayms = static_cast<int>(minimumFrameTime - dt);
-    if (delayms > 0)
+    if (vsync) {
+      auto delayms = static_cast<int>(minimumFrameTime - dt);
+      if (delayms > 0)
         SDL_Delay(static_cast<unsigned int>(delayms));
+    }
 
     ticks = current_ticks;
     lastFrames[lastFrameItr] = dt;
-lastFrameItr++;
+
+    lastFrameItr++;
     if (lastFrameItr >= FPSCounterSize) {
-        lastFrameItr = 0;
-        int time = 0;
-        for (auto timeframe : lastFrames)
-            time += timeframe;
-        LOGVVV("FPS: " << 1000.0f * FPSCounterSize / (time));
+      lastFrameItr = 0;
+      int time = 0;
+      for (auto timeframe : lastFrames)
+        time += timeframe;
+      LOGVVV("FPS: " << 1000.0f * FPSCounterSize / (time));
     }
   }
 }
 
-void SDL_OpenGL::stop()
-{
-    loop = false;
+void SDL_OpenGL::stop() {
+  loop = false;
 }
 
 SDL_OpenGL::~SDL_OpenGL() {
@@ -115,7 +117,6 @@ SDL_OpenGL::~SDL_OpenGL() {
 
 namespace {
 Keyboard::Key sdlKeyTo(SDL_Keycode sdlkey) {
-
   Keyboard::Key k = Keyboard::Key::None;
 
   switch (sdlkey) {
@@ -147,7 +148,6 @@ Keyboard::Key sdlKeyTo(SDL_Keycode sdlkey) {
   }
   return k;
 }
-
 }
 
 void SDL_OpenGL::eventLoop() {

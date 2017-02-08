@@ -4,13 +4,29 @@
 
 Vector2::Vector2(float x, float y) : x(x), y(y) {}
 
-float Vector2::LenghtSquared() { return x * x + y * y; }
-
-float Vector2::Lenght() {
-  return static_cast<float>(std::pow(x * x + y * y, .5));
+float Vector2::LenghtSquared() {
+  return x * x + y * y;
 }
 
-Vector2 operator+(Vector2 a, Vector2 b)
+float Vector2::Lenght() {
+  return static_cast<float>(std::sqrt(x * x + y * y));
+}
+
+Vector2 operator+(Vector2 a, Vector2 b) {
+  return {a.x + b.x, a.y + b.y};
+}
+
+Vector2 operator/(Vector2 v, float s) {
+  return {v.x / s, v.y / s};
+}
+
+Vector2 operator/(float s, Vector2 v)
 {
-    return Vector2{a.x + b.x, a.y + b.y};
+    return {s / v.x, s / v.y};
+}
+
+std::ostream &operator<<(std::ostream &stream, const Vector2 &v)
+{
+    stream << "(" << v.x << "," << v.y << ")";
+    return stream;
 }

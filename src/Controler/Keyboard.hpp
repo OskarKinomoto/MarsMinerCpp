@@ -8,6 +8,8 @@
 
 class Keyboard {
 public:
+    Keyboard();
+
     enum class Key{
         Up,
         Down,

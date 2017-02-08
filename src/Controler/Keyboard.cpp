@@ -3,6 +3,13 @@
 #include <cmath>
 #include "../Utils/Log.hpp"
 
+Keyboard::Keyboard()
+{
+    for (auto& s: states) {
+        s = State::Up;
+    }
+}
+
 void Keyboard::Update(Keyboard::Key k, State state)
 {
     auto &a = states[static_cast<size_t>(k)];

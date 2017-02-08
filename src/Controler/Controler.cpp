@@ -26,6 +26,13 @@ void Controler::Paint(Painter p, Camera c)
     // buildings
     // robot
     // window
+/*
+    p.BeginQuads();
+    p.Color(Color::Red);
+    p.Square(Position{0,0}, Size{-300,50}, Layer::Robot);
+    p.Color(Color::Blue);
+    p.Square(Position{-300,50}, Size{-300,50}, Layer::Robot);
+    p.EndQuads();*/
 }
 
 

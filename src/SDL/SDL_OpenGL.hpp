@@ -17,7 +17,8 @@ public:
     ActionArgs2<Keyboard::Key, Keyboard::State> KeyboardEvent;
     ActionArgs2<float, float> ResizeEvent;
     Painter painter;
-    int FPS = 60;
+    int FPS = 120;
+    bool vsync = false;
 
 private:
     void *window;

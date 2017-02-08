@@ -3,14 +3,23 @@
 #include <memory>
 #include <string>
 
+#include "../Utils/Vector2.hpp"
+
 class Texture {
 public:
-    virtual void Use() = 0;
-    virtual ~Texture() = default;
+    enum class Type {
+        Standard,
+        Text,
+    };
 
-protected:
-    std::unique_ptr<char[]> Load(const std::string &path);
-    std::unique_ptr<char[]> Text(const std::string &str);
+    Texture(std::string path);
+    virtual void Use();
+    virtual ~Texture();
+
+    Vector2 size;
+    Vector2 textSize;
+private:
+    unsigned int texID;
 };
 
 typedef std::unique_ptr<Texture> TexturePtr;

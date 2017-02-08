@@ -27,6 +27,7 @@ decltype(Tiles::tiles[0]) & Tiles::operator()(size_t x, size_t y) {
 }
 
 void Tiles::Paint(Painter p, Camera c) {
+
   int yStart = static_cast<int>((-c.y - p.Height() / 2) / Tile::Size - 1);
   int yEnd =
       static_cast<int>(std::floor((-c.y + p.Height() / 2) / Tile::Size + 1));
@@ -52,15 +53,15 @@ void Tiles::Paint(Painter p, Camera c) {
 
   p.Textures(true);
   Sprite::UseTexture();
-
   p.BeginQuads();
 
   for (int x = xStart; x < xEnd; ++x)
     for (int y = yStart; y <= yEnd; ++y)
-      try {
         this->operator()(x - Model::LeftTile, -y).Paint(p, c);
-      } catch (std::exception) {
-      }
+
+  for (auto& tile : tiles) {
+      tile.Paint(p,c);
+  }
 
   p.EndQuads();
 }

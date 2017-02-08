@@ -4,7 +4,28 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "../Utils/Exception.hpp"
+
 namespace {
+
+void glError()
+{
+    auto ret = glGetError();
+    if (ret != GL_NO_ERROR) {
+        switch(ret) {
+        case GL_INVALID_ENUM:
+            throw Exception("GL_INVALID_ENUM");
+        case GL_INVALID_VALUE:
+            throw Exception("GL_INVALID_VALUE");
+        case GL_INVALID_OPERATION:
+            throw Exception("GL_INVALID_OPERATION");
+        case GL_INVALID_FRAMEBUFFER_OPERATION:
+            throw Exception("GL_INVALID_FRAMEBUFFER_OPERATION");
+        default:
+            throw Exception("GL_UNKNOWN");
+        }
+    }
+}
 
 inline void glTexCoord2f(Vector2 v) {
     ::glTexCoord2f(v.x, v.y);
@@ -14,49 +35,67 @@ inline void glTexCoord2f(Vector2 v) {
 
 void PainterGL2::SetUp()
 {
-    glEnable(GL_DEPTH_TEST | GL_TEXTURE_2D | GL_BLEND);
+    glError();
+    glEnable(GL_DEPTH_TEST);
+    glError();
+    glEnable(GL_BLEND);
+    glError();
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glError();
 }
 
 void PainterGL2::CleanView()
 {
-    glClearColor(0.f, 1.f, 0.f, 0.f);
+    glClearColor(0.5f, 0.5f, 1.f, 0.f);
+    glError();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glError();
+
+    glm::mat4x4 modelView = glm::lookAt(glm::vec3{0.0f, 0.0f, 0.0f},
+                                        glm::vec3{0.0f, 0.0f, -1.0f},
+                                        glm::vec3{0.0f, 1.0f, 0.0f});
+    glMatrixMode(GL_MODELVIEW);
+    glError();
+    glLoadMatrixf(&modelView[0][0]);
+    glError();
 }
 
 void PainterGL2::BeginQuads()
 {
+    glError();
     glBegin(GL_QUADS);
 }
 
 void PainterGL2::Square(Position position, Size size, Layer layer)
 {
-    glTexCoord3f(position.x, position.y, static_cast<float>(layer));
-    glTexCoord3f(position.x + size.x, position.y + size.y, static_cast<float>(layer));
-    glTexCoord3f(position.x + size.x, position.y, static_cast<float>(layer));
-    glTexCoord3f(position.x, position.y + size.y, static_cast<float>(layer));
+    glVertex3f(position.x, position.y, static_cast<float>(layer));
+    glVertex3f(position.x + size.x, position.y, static_cast<float>(layer));
+    glVertex3f(position.x + size.x, position.y + size.y, static_cast<float>(layer));
+    glVertex3f(position.x, position.y + size.y, static_cast<float>(layer));
 }
 
 void PainterGL2::Sprite(Position position, Size size, Layer layer, Sprite::Name sprite)
 {
     glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftBottom));
-    glTexCoord3f(position.x, position.y, static_cast<float>(layer));
-    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftTop));
-    glTexCoord3f(position.x + size.x, position.y + size.y, static_cast<float>(layer));
+    glVertex3f(position.x, position.y, static_cast<float>(layer));
     glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::RightBottom));
-    glTexCoord3f(position.x + size.x, position.y, static_cast<float>(layer));
+    glVertex3f(position.x + size.x, position.y, static_cast<float>(layer));
+    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftTop));
+    glVertex3f(position.x + size.x, position.y + size.y, static_cast<float>(layer));
     glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::RightTop));
-    glTexCoord3f(position.x, position.y + size.y, static_cast<float>(layer));
+    glVertex3f(position.x, position.y + size.y, static_cast<float>(layer));
 }
 
 void PainterGL2::EndQuads()
 {
     glEnd();
+    glError();
 }
 
 void PainterGL2::Translate(Vector2 v)
 {
     glTranslatef(v.x, v.y, 0);
+    glError();
 }
 
 void PainterGL2::Color(::Color color)
@@ -74,6 +113,8 @@ void PainterGL2::Textures(bool enable)
     else
         glDisable(GL_TEXTURE_2D);
 
+    glError();
+
     texturesEnabled = enable;
 }
 
@@ -82,15 +123,13 @@ void PainterGL2::Resize(int width, int height)
     this->width = width;
     this->height = height;
 
-    glViewport(0,0, width, height);
-    glMatrixMode(GL_PROJECTION_MATRIX);
-
-
-    // TODO ortho view matrix
-
-    glm::mat4x4 projection_matrix = glm::ortho(0, width, 0, height, -11, 11);
-
-    glLoadMatrixf(&projection_matrix[0][0]);
+    glViewport(0, 0, width, height);
+    glError();
+    glMatrixMode(GL_PROJECTION);
+    glError();
+    glm::mat4 mat = glm::ortho<float>(-width, 0, -height/2.0f, height /2.0f, -11.0f, 11.0f);
+    glLoadMatrixf(&mat[0][0]);
+    glError();
 }
 
 float PainterGL2::Width() const
@@ -106,10 +145,10 @@ float PainterGL2::Height() const
 void PainterGL2::Gradient(Position start, ::Color c1, Position end, ::Color c2, Layer layer)
 {
     Color(c1);
-    glTexCoord3f(start.x, start.y, static_cast<float>(layer));
-    glTexCoord3f(end.x, start.y, static_cast<float>(layer));
+    glVertex3f(start.x, start.y, static_cast<float>(layer));
+    glVertex3f(end.x, start.y, static_cast<float>(layer));
 
     Color(c2);
-    glTexCoord3f(end.x, end.y, static_cast<float>(layer));
-    glTexCoord3f(start.x, end.y, static_cast<float>(layer));
+    glVertex3f(end.x, end.y, static_cast<float>(layer));
+    glVertex3f(start.x, end.y, static_cast<float>(layer));
 }

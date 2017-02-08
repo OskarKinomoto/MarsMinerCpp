@@ -51,7 +51,7 @@ Tile::Tile(int x, int y, bool exists) : x(x), y(y)
     collisionable = exists;
 }
 
-Tile::Tile(int x, int y) : x(x), y(y), position(x * Size, y * Size)
+Tile::Tile(int x, int y) : x(x), y(y), position(x * Size, (y - 1) * Size)
 {
     if (y != 0 && -y != Model::MaxDepth - 20) {
         state = GenerateTile() ? State::Exist : State::None;
@@ -116,7 +116,11 @@ void Tile::Paint(Painter p, Camera)
     Sprite::Name sprite = Sprite::Name::TileFull;
 
     p.Sprite(position, Vector2(Size, Size), Layer::Tiles, sprite);
-
+    /*
+     * p.Color(Color::Green);
+     * p.Square(position, {50, 50}, Layer::Window);
+     */
+/*
     sprite = static_cast<Sprite::Name>(-1);
     switch (state) {
     case State::NonBreakable:
@@ -129,10 +133,11 @@ void Tile::Paint(Painter p, Camera)
     case State::Exist:
     case State::None:
         break;
-    }
-
+    }*/
+/*
     if (static_cast<int>(sprite) != -1)
         p.Sprite(position, Vector2{Size, Size}, Layer::Tiles++, sprite);
+        */
 }
 
 
