@@ -13,11 +13,24 @@ SET(MAIN_SOURCES
   Utils/Vector2.cpp
   Utils/Tools.cpp
   Utils/Exception.cpp
+  Utils/OpenglVersion.cpp
   Objects/Background.cpp
+  Objects/BreakingTile.cpp
+  Objects/Clouds.cpp
+  Objects/Grass.cpp
   Objects/Model.cpp
   Objects/Mineral.cpp
   Objects/Tile.cpp
   Objects/Tiles.cpp
+  Robot/Robot.cpp
+  Robot/Cargo.cpp
+  Robot/Drill.cpp
+  Robot/Engine.cpp
+  Robot/Fuel.cpp
+  Robot/Hull.cpp
+  Robot/MainSystem.cpp
+  Robot/Money.cpp
+  Robot/Physics.cpp
   )
 
 SET(MAIN_HEADERS
@@ -29,6 +42,7 @@ SET(MAIN_HEADERS
     Interfaces/MouseInterface.hpp
     Interfaces/PaintInterface.hpp
     Interfaces/TickInterface.hpp
+    Robot/Enums.hpp
     )
 
 INCLUDE_DIRECTORIES(.)

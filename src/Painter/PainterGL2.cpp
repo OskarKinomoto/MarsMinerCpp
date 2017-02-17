@@ -68,21 +68,28 @@ void PainterGL2::BeginQuads()
 
 void PainterGL2::Square(Position position, Size size, Layer layer)
 {
+    glTexCoord2f(0,0);
     glVertex3f(position.x, position.y, static_cast<float>(layer));
+    glTexCoord2f(1,0);
     glVertex3f(position.x + size.x, position.y, static_cast<float>(layer));
+    glTexCoord2f(1,1);
     glVertex3f(position.x + size.x, position.y + size.y, static_cast<float>(layer));
+    glTexCoord2f(0,1);
     glVertex3f(position.x, position.y + size.y, static_cast<float>(layer));
 }
 
-void PainterGL2::Sprite(Position position, Size size, Layer layer, Sprite::Name sprite)
+void PainterGL2::Sprite(Position position, Size size, Layer layer, Sprite::Name sprite, int offset)
 {
-    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftBottom));
+    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftBottom, offset));
     glVertex3f(position.x, position.y, static_cast<float>(layer));
-    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::RightBottom));
+
+    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftTop, offset));
     glVertex3f(position.x + size.x, position.y, static_cast<float>(layer));
-    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftTop));
+
+    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::RightBottom, offset));
     glVertex3f(position.x + size.x, position.y + size.y, static_cast<float>(layer));
-    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::RightTop));
+
+    glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::RightTop, offset));
     glVertex3f(position.x, position.y + size.y, static_cast<float>(layer));
 }
 
@@ -108,10 +115,12 @@ void PainterGL2::Textures(bool enable)
     if (enable == texturesEnabled)
         return;
 
-    if (enable)
+    if (enable) {
+        Color(Color::White);
         glEnable(GL_TEXTURE_2D);
-    else
+    } else {
         glDisable(GL_TEXTURE_2D);
+    }
 
     glError();
 

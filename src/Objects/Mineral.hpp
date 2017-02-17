@@ -11,6 +11,15 @@ public:
 
     static Mineral RandomByDepth(int TileDepth);
 
+public:
+    Mineral();
+
+public:
+    bool notNull;
+
+private:
+    Mineral(Sprite::Name sprite);
+
 private:
     Sprite::Name sprite;
 };

@@ -1,6 +1,7 @@
 #include "Layer.hpp"
 
 const Layer Layer::Background{-9};
+const Layer Layer::CloudsLow{-8.1f};
 const Layer Layer::Clouds{-8};
 const Layer Layer::Grass{-8};
 const Layer Layer::Tiles{-7};

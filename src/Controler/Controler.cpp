@@ -10,29 +10,33 @@ Controler::~Controler()
 
 }
 
-void Controler::Tick(float)
+void Controler::Tick(float dt)
 {
+    m.robot.engine.SetFromKeyboard(keyboard.Down(Keyboard::Key::Left),
+                                   keyboard.Down(Keyboard::Key::Right),
+                                   keyboard.Down(Keyboard::Key::Up),
+                                   keyboard.Down(Keyboard::Key::Down));
 
+    clouds.Tick(dt);
+    m.Tick(dt);
+
+    c.SetPosition(m.robot.position, Model::LeftTile, Model::RightTile);
 }
 
 void Controler::Paint(Painter p, Camera c)
 {
     p.CleanView();
+    c.Begin();
+
+    c.TranslateBack();
 
     background.Paint(p, c);
-    // clouds
-    // grass
+    clouds.Paint(p, c);
+    grass.Paint(p, c);
     m.tiles.Paint(p,c);
     // buildings
-    // robot
+    m.robot.Paint(p,c);
     // window
-/*
-    p.BeginQuads();
-    p.Color(Color::Red);
-    p.Square(Position{0,0}, Size{-300,50}, Layer::Robot);
-    p.Color(Color::Blue);
-    p.Square(Position{-300,50}, Size{-300,50}, Layer::Robot);
-    p.EndQuads();*/
 }
 
 

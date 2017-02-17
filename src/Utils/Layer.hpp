@@ -3,6 +3,7 @@
 class Layer {
 public:
     static const Layer Background;
+    static const Layer CloudsLow;
     static const Layer Clouds;
     static const Layer Grass;
     static const Layer Tiles;

@@ -28,11 +28,11 @@ decltype(Tiles::tiles[0]) & Tiles::operator()(size_t x, size_t y) {
 
 void Tiles::Paint(Painter p, Camera c) {
 
-  int yStart = static_cast<int>((-c.y - p.Height() / 2) / Tile::Size - 1);
+  int yStart = static_cast<int>((-c.position.y - p.Height() / 2) / Tile::Size - 1);
   int yEnd =
-      static_cast<int>(std::floor((-c.y + p.Height() / 2) / Tile::Size + 1));
-  int xStart = static_cast<int>((-c.x - p.Width() / 2) / Tile::Size - 1);
-  int xEnd = static_cast<int>((-c.x + p.Width() / 2) / Tile::Size + 1);
+      static_cast<int>(std::floor((-c.position.y + p.Height() / 2) / Tile::Size + 1));
+  int xStart = static_cast<int>((-c.position.x - p.Width() / 2) / Tile::Size - 1);
+  int xEnd = static_cast<int>((-c.position.x + p.Width() / 2) / Tile::Size + 1);
 
   // Tiles are only underground
   if (yEnd > 0)

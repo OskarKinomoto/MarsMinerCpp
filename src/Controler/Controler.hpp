@@ -10,6 +10,9 @@
 
 #include "../Objects/Model.hpp"
 #include "../Objects/Background.hpp"
+#include "../Objects/Clouds.hpp"
+#include "../Objects/Grass.hpp"
+
 
 class Controler : public PaintInterface, public TickInterface, public LoadInterface {
 public:
@@ -36,5 +39,8 @@ private:
     State state = State::MainMenu;
 
     Model m;
+
     Background background;
+    Clouds clouds;
+    Grass grass;
 };

@@ -12,7 +12,7 @@ Vector2 Sprite::size{};
 Vector2 Sprite::range{};
 TexturePtr Sprite::texture{};
 
-void Sprite::UseTexture() { if (texture) texture->Use(); }
+void Sprite::UseTexture() { texture->Use(); }
 
 void Sprite::Load()
 {
@@ -20,6 +20,7 @@ void Sprite::Load()
 
     range = texture->size / SIZE;
     size = 1.0f / range;
+    //size = {0.065,1.f};
 
     LOGVV("Sprite – Range – " << range);
     LOGVV("Sprite – Size – " << size);
@@ -29,6 +30,7 @@ Vector2 Sprite::Coordinates(Sprite::Name sprite,
                             Sprite::VertexPosition vertexPosition, int offset) {
   int i = (static_cast<int>(sprite) + offset) % static_cast<int>(range.x);
   int j = (static_cast<int>(sprite) + offset) / static_cast<int>(range.x);
+  j = 15 - j;
 
   switch (vertexPosition) {
     case VertexPosition::LeftBottom:

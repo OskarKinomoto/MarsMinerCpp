@@ -2,7 +2,11 @@
 
 #include "Tiles.hpp"
 
-class Model {
+
+#include "../Interfaces/TickInterface.hpp"
+#include "../Robot/Robot.hpp"
+
+class Model : public TickInterface{
 public:
     static const int MaxDepth = 300;
     static const int MapXSize = 40;
@@ -13,8 +17,13 @@ public:
     static const int RightTile = RightX * Tile::Size;
 
 public:
-    Model() = default;
+    Model();
 
 public:
     Tiles tiles;
+    Robot robot;
+
+    // TickInterface interface
+public:
+    void Tick(float dt) override;
 };

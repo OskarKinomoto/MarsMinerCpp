@@ -3,6 +3,9 @@
 #include <exception>
 #include <string>
 
+#undef minor
+#undef major
+
 class Exception : public std::exception {
 public:
     Exception(std::string str);

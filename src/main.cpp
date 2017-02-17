@@ -18,8 +18,8 @@ using namespace std;
 
 int main() {
   PainterGL2 painter{};
-  SDL_OpenGL sdl{painter, 2, 1};
-  CameraGL2 camera;
+  SDL_OpenGL sdl{painter, {2, 1}, {1280,720}};
+  CameraGL2 camera{[&](){return sdl.size();}};
   Controler c([&](){sdl.stop();}, camera);
   painter.SetUp();
 
@@ -27,6 +27,7 @@ int main() {
 
   sdl.KeyboardEvent = [&](auto k, auto s) { c.keyboard.Update(k, s); };
   sdl.PaintEvent = [&](auto& p){c.Paint(p, camera);};
+  sdl.PhysicsEvent = [&](auto dt){c.Tick(dt);};
   sdl.run();
 
   return 0;

@@ -37,21 +37,21 @@ size_t lastFrameItr = 0;
 
 } /* namespace */
 
-SDL_OpenGL::SDL_OpenGL(Painter p, int major, int minor) : painter(p) {
+SDL_OpenGL::SDL_OpenGL(Painter p, OpenglVersion version, Size windowSize)
+    : painter(p) {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
     throw Exception{"Failed to init SDL\n"};
 
-  // Create our window centered at 512x512 resolution
-  window =
-      SDL_CreateWindow("MarsMiner", SDL_WINDOWPOS_CENTERED,
-                       SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+  window = SDL_CreateWindow("MarsMiner", SDL_WINDOWPOS_CENTERED,
+                            SDL_WINDOWPOS_CENTERED, windowSize.width,
+                            windowSize.height, SDL_WINDOW_OPENGL);
 
   if (!window)
     CheckSDLError("Unable to create window");
 
   glContext = SDL_GL_CreateContext(static_cast<SDL_Window*>(window));
 
-  SetOpenGLAttributes(major, minor);
+  SetOpenGLAttributes(version.major, version.minor);
   SDL_GL_SetSwapInterval(vsync);
 
 #ifndef __APPLE__
@@ -63,7 +63,7 @@ SDL_OpenGL::SDL_OpenGL(Painter p, int major, int minor) : painter(p) {
   LOGVV(glGetString(GL_RENDERER));
   LOGVVV(glGetString(GL_EXTENSIONS));
 
-  p.Resize(800, 600);
+  p.Resize(windowSize.width, windowSize.height);
 
   SDL_GL_SwapWindow(static_cast<SDL_Window*>(window));
 }
@@ -78,7 +78,7 @@ void SDL_OpenGL::run() {
     auto dt = current_ticks - ticks;
 
     if (PhysicsEvent)
-      PhysicsEvent(dt);
+      PhysicsEvent(dt / 1000.0f);
 
     if (PaintEvent)
       PaintEvent(painter);
@@ -100,7 +100,8 @@ void SDL_OpenGL::run() {
       int time = 0;
       for (auto timeframe : lastFrames)
         time += timeframe;
-      LOGVVV("FPS: " << 1000.0f * FPSCounterSize / (time));
+      if (logFPS)
+        LOGVVV("FPS: " << 1000.0f * FPSCounterSize / (time));
     }
   }
 }
@@ -113,6 +114,14 @@ SDL_OpenGL::~SDL_OpenGL() {
   SDL_GL_DeleteContext(glContext);
   SDL_DestroyWindow(static_cast<SDL_Window*>(window));
   SDL_Quit();
+}
+
+Size SDL_OpenGL::size()
+{
+    int w = 0;
+    int h = 0;
+    SDL_GetWindowSize(static_cast<SDL_Window*>(window), &w, &h);
+    return {static_cast<float>(w), static_cast<float>(h)};
 }
 
 namespace {

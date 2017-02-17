@@ -9,7 +9,7 @@ public:
 
     void BeginQuads() override;
     void Square(Position position, Size size, Layer layer) override;
-    void Sprite(Position position, Size size, const Layer layer, Sprite::Name sprite) override;
+    void Sprite(Position position, Size size, const Layer layer, Sprite::Name sprite, int offset = 0) override;
     void EndQuads() override;
 
     void Translate(Vector2 v) override;

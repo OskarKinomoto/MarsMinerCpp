@@ -1,7 +1,7 @@
 #include "Mineral.hpp"
 
 const Mineral Mineral::None{};
-const Mineral Mineral::Gold{};
+const Mineral Mineral::Gold{Sprite::Name::TileGold};
 
 Sprite::Name Mineral::GetSprite()
 {
@@ -11,4 +11,14 @@ Sprite::Name Mineral::GetSprite()
 Mineral Mineral::RandomByDepth(int /*TileDepth*/)
 {
     return Gold;
+}
+
+Mineral::Mineral() : notNull(false)
+{
+
+}
+
+Mineral::Mineral(Sprite::Name sprite) : notNull(true), sprite(sprite)
+{
+
 }
