@@ -91,6 +91,18 @@ bool Tile::Collisionable() const {
   return collisionable;
 }
 
+bool Tile::VertexInTile(Vector2 tile, Vector2 point) {
+  auto x1 = Size * (0 + tile.x);
+  auto xp = point.x;
+  auto x2 = Size * (1 + tile.x);
+
+  auto y1 = Size * (0 + tile.y);
+  auto yp = point.y;
+  auto y2 = Size * (1 + tile.y);
+
+  return x1 <= xp && xp <= x2 && y1 <= yp && yp <= y2;
+}
+
 bool Tile::GenerateTile() {
   return holesRnd(gen) != 0;
 }

@@ -17,5 +17,6 @@ Model::Model()
 
 void Model::Tick(float dt)
 {
+    robot.SetCollisionTiles(tiles.GenCollisionTiles(tiles.TilesOnRobot(robot)));
     robot.Tick(dt);
 }

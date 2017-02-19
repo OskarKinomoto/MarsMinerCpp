@@ -71,7 +71,7 @@ void Engine::SetFromKeyboard(bool left, bool right, bool up, bool down)
     state.running = (left ^ right) | (up ^ down);
     state.angle = keyboardArrows.Angle();
 
-    LOGVV("Engine: " << (state.running ? "" : "not ") << "running; angle: " << state.angle);
+    //LOGVV("Engine: " << (state.running ? "" : "not ") << "running; angle: " << state.angle);
 }
 
 float Engine::UpForce(Engine::Model m) {

@@ -7,45 +7,46 @@
 
 #include <cstdlib>
 
-class Tile : public PaintInterface
-{
-public:
-    static constexpr int Size = 60;
+class Tile : public PaintInterface {
+ public:
+  static constexpr int Size = 60;
 
-    int x;
-    int y;
+  int x;
+  int y;
 
-    Vector2 position;
+  Vector2 position;
 
-    Tile();
-    Tile(int x, int y, bool exists);
-    Tile(int x, int y);
+  Tile();
+  Tile(int x, int y, bool exists);
+  Tile(int x, int y);
 
-    void Destroy();
+  void Destroy();
 
-    bool Exists() const;
-    bool Breakable() const;
-    void Breakable(bool);
-    Mineral GetMineral() const;
-    bool Collisionable() const;
+  bool Exists() const;
+  bool Breakable() const;
+  void Breakable(bool);
+  Mineral GetMineral() const;
+  bool Collisionable() const;
 
-private:
-    enum class State {
-        None,
-        Exist,
-        Mineral,
-        NonBreakable,
-    };
+  static bool VertexInTile(Vector2 tile, Vector2 point);
 
-    State state;
-    bool collisionable;
-    bool breakable;
+ private:
+  enum class State {
+    None,
+    Exist,
+    Mineral,
+    NonBreakable,
+  };
 
-    Mineral mineral;
+  State state;
+  bool collisionable;
+  bool breakable;
 
-    bool GenerateTile();
+  Mineral mineral;
 
-    // PaintInterface interface
-public:
-    void Paint(Painter p, Camera c) override;
+  bool GenerateTile();
+
+  // PaintInterface interface
+ public:
+  void Paint(Painter p, Camera c) override;
 };

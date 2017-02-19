@@ -2,6 +2,8 @@
 
 #include "../Utils/Exception.hpp"
 
+float Drill::MoveToHeatDrillSquared = 200.0f;
+
 void Drill::Tick(float dt)
 {
     cooling -= dt;
@@ -23,6 +25,11 @@ float Drill::DrillingSpeed()
 float Drill::CoolingTime()
 {
     return CoolingTime(model);
+}
+
+bool Drill::Cooled()
+{
+    return cooling <= 0;
 }
 
 float Drill::DrillingSpeed(Drill::Model m)

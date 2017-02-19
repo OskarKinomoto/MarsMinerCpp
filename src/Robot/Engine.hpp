@@ -19,7 +19,7 @@ public:
     };
 
     State state;
-    Model model;
+    Model model = Model::Standard;
 
     RobotBreaking Breaking();
     Vector2 Force();

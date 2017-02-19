@@ -22,6 +22,7 @@ SET(MAIN_SOURCES
   Objects/Mineral.cpp
   Objects/Tile.cpp
   Objects/Tiles.cpp
+  Objects/CollisionTile.cpp
   Robot/Robot.cpp
   Robot/Cargo.cpp
   Robot/Drill.cpp
@@ -42,7 +43,9 @@ SET(MAIN_HEADERS
     Interfaces/MouseInterface.hpp
     Interfaces/PaintInterface.hpp
     Interfaces/TickInterface.hpp
+    Interfaces/FuelUseInterface.hpp
     Robot/Enums.hpp
+    Utils/Utils.hpp
     )
 
 INCLUDE_DIRECTORIES(.)
