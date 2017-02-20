@@ -13,7 +13,7 @@ Tiles::Tiles() {
 
   for (size_t x = 0; x < XSize; x++)
     for (size_t y = 0; y < Model::MaxDepth; y++)
-      this->operator()(x, y) = Tile(Model::LeftX + x, -y);
+      *this->operator()(x, y) = Tile(Model::LeftX + x, -y);
 
   /*
    * 	foreach (var b in bs) {
@@ -25,8 +25,13 @@ Tiles::Tiles() {
                   */
 }
 
-decltype(Tiles::tiles[0]) & Tiles::operator()(size_t x, size_t y) {
-  return tiles.at(x + y * Model::MapXSize);
+Tile* Tiles::operator()(size_t x, size_t y) {
+    size_t index = x + y * Model::MapXSize;
+
+    if (index >= tiles.size())
+        throw Exception{"Tiles – Out of range"};
+
+  return &tiles[index];
 }
 
 Vectors Tiles::TilesOnRobot(const Robot& r) {
@@ -56,7 +61,7 @@ Vectors Tiles::TilesOnRobot(const Robot& r) {
 CollisionTiles Tiles::GenCollisionTiles(Vectors robotOnTiles) {
   CollisionTiles ret{};
   auto Add = [&](int xx, int yy, CollisionTile::Position pos) {
-    if (CheckTileCords(xx, yy) && this->operator()(xx, yy).Collisionable())
+    if (CheckTileCords(xx, yy) && this->operator()(xx, yy)->Collisionable())
       ret.push_back({this->operator()(xx, yy), pos});
   };
 
@@ -97,16 +102,13 @@ void Tiles::Paint(Painter p, Camera c) {
   if (xStart < Model::LeftX)
     xStart = Model::LeftX;
 
-  if (yStart - yEnd > 0)
-    return;
-
   p.Textures(true);
   Sprite::UseTexture();
   p.BeginQuads();
 
   for (int x = xStart; x < xEnd; ++x)
     for (int y = yStart; y <= yEnd; ++y)
-      this->operator()(x - Model::LeftTile, -y).Paint(p, c);
+      this->operator()(x - Model::LeftTile, -y)->Paint(p, c);
 
   for (auto& tile : tiles) {
     tile.Paint(p, c);

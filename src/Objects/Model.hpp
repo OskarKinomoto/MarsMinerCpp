@@ -26,4 +26,8 @@ public:
     // TickInterface interface
 public:
     void Tick(float dt) override;
+
+private:
+    void ProcessBreakingTile(Vectors tilesOnRobot, RobotBreaking robotStatusBreking, bool robotOldStatus);
+    Tile *TileToBreak(const Vectors &tilesOnRobot, RobotBreaking robotStatusBreking);
 };

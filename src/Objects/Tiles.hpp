@@ -17,7 +17,7 @@ public:
     Tiles();
 
 public:
-    decltype (tiles[0]) &operator()(size_t x, size_t y);
+    Tile* operator()(size_t x, size_t y);
 
 public:
     Vectors TilesOnRobot(const Robot &r);

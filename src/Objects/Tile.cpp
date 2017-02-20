@@ -88,7 +88,14 @@ Mineral Tile::GetMineral() const {
 }
 
 bool Tile::Collisionable() const {
-  return collisionable;
+    return collisionable;
+}
+
+BreakingTile Tile::SetCollision()
+{
+    LOGV("SetCollision Tile: " << position);
+    collisionable = false;
+    return {this};
 }
 
 bool Tile::VertexInTile(Vector2 tile, Vector2 point) {

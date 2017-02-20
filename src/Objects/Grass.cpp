@@ -15,6 +15,8 @@ void Grass::Paint(Painter p, Camera)
         phase++;
         p.Sprite({static_cast<float>(Tile::Size * i), 0}, size, Layer::Grass,
                  Sprite::Name::Grass, phase % GrassTiles);
+        p.Sprite({static_cast<float>(Tile::Size * i), -Tile::Size + 23}, size, Layer::Grass,
+                 Sprite::Name::GrassRoots, phase % GrassTiles);
     }
 
     p.EndQuads();

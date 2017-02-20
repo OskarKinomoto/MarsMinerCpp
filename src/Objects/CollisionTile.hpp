@@ -17,10 +17,10 @@ class CollisionTile {
   };
 
  public:
-  CollisionTile(Tile& tile, Position position);
+  CollisionTile(Tile *tile, Position position);
 
  public:
-  std::reference_wrapper<Tile> tile;
+  Tile *tile;
   Position position;
 
  public:

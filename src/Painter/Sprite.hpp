@@ -43,6 +43,7 @@ class Sprite {
     TileNonBreakable8 = 56,
     TileFe = 57,
     Grass = 58,  // – 64
+    GrassRoots = 73,  // – ?
   };
 
   enum class VertexPosition {

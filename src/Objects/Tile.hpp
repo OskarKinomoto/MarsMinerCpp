@@ -2,6 +2,7 @@
 
 #include "../Utils/Vector2.hpp"
 #include "../Interfaces/PaintInterface.hpp"
+#include "BreakingTile.hpp"
 
 #include "Mineral.hpp"
 
@@ -27,6 +28,7 @@ class Tile : public PaintInterface {
   void Breakable(bool);
   Mineral GetMineral() const;
   bool Collisionable() const;
+  BreakingTile SetCollision();
 
   static bool VertexInTile(Vector2 tile, Vector2 point);
 

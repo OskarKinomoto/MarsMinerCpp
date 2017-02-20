@@ -17,12 +17,12 @@
 #include "Enums.hpp"
 
 class Robot : public PaintInterface, public TickInterface {
-private:
+public:
     enum class State {
         Move,
         Break,
     };
-
+private:
     class PossibleBreaking {
     public:
         bool LeftRight = false;
@@ -44,7 +44,10 @@ public:
     Vector2 Center();
     Vectors Verticies() const;
     Vector2 BottomTile(const Vectors &tiles);
+    void SetMineralToRecieve(Mineral mineral);
     void SetCollisionTiles(std::vector<CollisionTile> &&tiles);
+    bool IsBreaking();
+    void SetState(State state);
 
 public:
     Engine engine;
@@ -63,6 +66,10 @@ public:
 public:
     const static Size size;
 
+public:
+    bool tileDestroy = false;
+    bool newDestroy = false;
+
 private:
     static float deepLogDt;
     static float margin;
@@ -79,6 +86,5 @@ private:
     void TickMove(float dt);
     void TickBreak(float dt);
     void RecieveMineral();
-    void SetState(State state);
     void StopMoving();
 };

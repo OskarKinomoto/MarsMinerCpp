@@ -15,4 +15,6 @@ public:
 private:
     static Vector2 Gravity();
     static Vector2 DragForce(Vector2 velocity);
+    static Vector2 HightForce(float height);
+    static Vector2 FrictionForce(bool engine, Vector2 velocity);
 };

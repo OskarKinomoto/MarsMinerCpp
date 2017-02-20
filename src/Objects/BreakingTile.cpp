@@ -2,9 +2,24 @@
 
 #include "../Robot/Robot.hpp"
 
+#include "Tile.hpp"
+
 BreakingTile::BreakingTile(Tile *tile) : tile(tile), destroyed(false)
 {
     positionInit();
+}
+
+void BreakingTile::Destroy()
+{
+    if (tile)
+        tile->Destroy();
+}
+
+void BreakingTile::Reset()
+{
+    tile = nullptr;
+    destroyed = false;
+    position = {};
 }
 
 void BreakingTile::positionInit()

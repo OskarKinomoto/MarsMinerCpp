@@ -42,6 +42,13 @@ void Robot::Paint(Painter p, Camera) {
 }
 
 void Robot::Tick(float dt) {
+  if (tileDestroy) {
+    tileDestroy = false;
+    breakingTile.Reset();
+  }
+
+  newDestroy = false;
+
   switch (state) {
     case State::Move:
       TickMove(dt);
@@ -86,10 +93,17 @@ Vector2 Robot::BottomTile(const Vectors& tiles) {
   return tiles[1];
 }
 
-void Robot::SetCollisionTiles(std::vector<CollisionTile> &&tiles)
-{
-    collisionTiles = std::move(tiles);
-    collisionTilesWasSet = true;
+void Robot::SetMineralToRecieve(Mineral mineral) {
+  this->mineral = mineral;
+}
+
+void Robot::SetCollisionTiles(std::vector<CollisionTile>&& tiles) {
+  collisionTiles = std::move(tiles);
+  collisionTilesWasSet = true;
+}
+
+bool Robot::IsBreaking() {
+  return state == State::Break;
 }
 
 void Robot::TickMove(float dt) {
@@ -180,11 +194,13 @@ void Robot::TickMove(float dt) {
     }
   }
 
-  if (isBreaking != RobotBreaking::None)
+  if (isBreaking != RobotBreaking::None) {
+    newDestroy = true;
     SetState(State::Break);
-  else if (std::abs(oldPosition.LenghtSquared() - position.LenghtSquared()) >
-           Drill::MoveToHeatDrillSquared)
+  } else if (std::abs(oldPosition.LenghtSquared() - position.LenghtSquared()) >
+             Drill::MoveToHeatDrillSquared) {
     drill.Heated();
+  }
 
   if (wasMovingAtBeginOfTick) {
     auto velocityAfterCollisions = velocity.Lenght();
@@ -211,11 +227,10 @@ void Robot::TickBreak(float dt) {
 
   if (dist <= move) {
     position = breakingTile.position;
-    breakingTile = BreakingTile{};
-
     RecieveMineral();
     SetState(State::Move);
     drill.Heated();
+    tileDestroy = true;
   } else {
     position += d * move / dist;
   }

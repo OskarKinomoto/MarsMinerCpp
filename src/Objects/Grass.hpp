@@ -7,6 +7,6 @@ public:
     void Paint(Painter p, Camera c) override;
 
 private:
-    constexpr static int GrassTiles = 7;
+    constexpr static int GrassTiles = 14;
     const static Vector2 size;
 };
