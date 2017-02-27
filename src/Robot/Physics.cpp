@@ -10,26 +10,26 @@ float Physics::FrictionConst = 65e-2f;
 float Physics::GravityConst = -80.f;
 float Physics::HeightConst = 2e-2f;
 
-Vector2 Physics::Forces(const Robot& robot) {
+VectorF Physics::Forces(const Robot& robot) {
   return Gravity() + DragForce(robot.velocity) + HightForce(robot.position.x) +
          FrictionForce(robot.engine.state.running, robot.velocity);
 }
 
-Vector2 Physics::Gravity() {
+VectorF Physics::Gravity() {
   return {0, GravityConst};
 }
 
-Vector2 Physics::DragForce(Vector2 velocity) {
+VectorF Physics::DragForce(VectorF velocity) {
   return {-velocity.x * ABS(velocity.x) * DragConst,
           -velocity.y * ABS(velocity.y) * DragConst};
 }
 
-Vector2 Physics::HightForce(float height) {
+VectorF Physics::HightForce(float height) {
   return {0, (height <= 0 ? 0 : -height * HeightConst)};
 }
 
-Vector2 Physics::FrictionForce(bool engine, Vector2 velocity) {
-  Vector2 ret{};
+VectorF Physics::FrictionForce(bool engine, VectorF velocity) {
+  VectorF ret{};
 
   if (velocity.y == 0 && velocity.x != 0) {
     ret.x = -velocity.x * FrictionConst;

@@ -20,13 +20,13 @@ public:
     Tile* operator()(size_t x, size_t y);
 
 public:
-    Vectors TilesOnRobot(const Robot &r);
-    CollisionTiles GenCollisionTiles(Vectors robotOnTiles);
+    VectorsF TilesOnRobot(const Robot &r);
+    CollisionTiles GenCollisionTiles(VectorsF robotOnTiles);
 
 public:
     void Paint(Painter p, Camera c) override;
 
 private:
-    Vectors PossibleTilesOnRobot(Vector2 robotPosition);
+    VectorsF PossibleTilesOnRobot(VectorF robotPosition);
     bool CheckTileCords(int xx, int yy);
 };

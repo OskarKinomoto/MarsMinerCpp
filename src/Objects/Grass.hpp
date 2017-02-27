@@ -8,5 +8,5 @@ public:
 
 private:
     constexpr static int GrassTiles = 14;
-    const static Vector2 size;
+    const static SizeI size;
 };

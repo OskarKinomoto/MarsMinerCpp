@@ -8,12 +8,12 @@
 
 class SDL_OpenGL {
 public:
-    SDL_OpenGL(Painter p, OpenglVersion version, Size windowSize);
+    SDL_OpenGL(Painter p, OpenglVersion version, SizeI windowSize);
     void run();
     void stop();
     ~SDL_OpenGL();
 
-    Size size();
+    SizeI size();
 
     ActionArgs<Painter> PaintEvent;
     ActionArgs<float> PhysicsEvent;

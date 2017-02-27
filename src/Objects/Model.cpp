@@ -2,7 +2,7 @@
 
 #include "../Utils/Log.hpp"
 
-Tile* Model::TileToBreak(const Vectors& tilesOnRobot,
+Tile* Model::TileToBreak(const VectorsF& tilesOnRobot,
                          RobotBreaking robotStatusBreking) {
   auto robotTilePosition = tilesOnRobot[0];
   auto robotTilePosToTile = [&](int x, int y) {
@@ -28,7 +28,7 @@ Tile* Model::TileToBreak(const Vectors& tilesOnRobot,
   return tileToBreak;
 }
 
-void Model::ProcessBreakingTile(Vectors tilesOnRobot,
+void Model::ProcessBreakingTile(VectorsF tilesOnRobot,
                                 RobotBreaking robotStatusBreking,
                                 bool robotOldStatus) {
   Tile* tileToBreak = TileToBreak(tilesOnRobot, robotStatusBreking);

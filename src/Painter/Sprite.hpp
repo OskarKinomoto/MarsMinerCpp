@@ -55,11 +55,11 @@ class Sprite {
 
   static void UseTexture();
   static void Load();
-  static Vector2 Coordinates(Name sprite, VertexPosition vertexPosition,
+  static VectorF Coordinates(Name sprite, VertexPosition vertexPosition,
                              int offset = 0);
 
  private:
   static TexturePtr texture;
-  static Vector2 range;
-  static Vector2 size;
+  static VectorF range;
+  static VectorF size;
 };

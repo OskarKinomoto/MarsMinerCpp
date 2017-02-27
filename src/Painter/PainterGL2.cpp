@@ -27,7 +27,7 @@ void glError()
     }
 }
 
-inline void glTexCoord2f(Vector2 v) {
+inline void glTexCoord2f(VectorF v) {
     ::glTexCoord2f(v.x, v.y);
 }
 
@@ -66,7 +66,7 @@ void PainterGL2::BeginQuads()
     glBegin(GL_QUADS);
 }
 
-void PainterGL2::Square(Position position, Size size, Layer layer)
+void PainterGL2::Square(PositionF position, SizeI size, Layer layer)
 {
     glTexCoord2f(0,0);
     glVertex3f(position.x, position.y, static_cast<float>(layer));
@@ -78,7 +78,7 @@ void PainterGL2::Square(Position position, Size size, Layer layer)
     glVertex3f(position.x, position.y + size.y, static_cast<float>(layer));
 }
 
-void PainterGL2::Sprite(Position position, Size size, Layer layer, Sprite::Name sprite, int offset)
+void PainterGL2::Sprite(PositionF position, SizeI size, Layer layer, Sprite::Name sprite, int offset)
 {
     glTexCoord2f(Sprite::Coordinates(sprite, Sprite::VertexPosition::LeftBottom, offset));
     glVertex3f(position.x, position.y, static_cast<float>(layer));
@@ -99,7 +99,7 @@ void PainterGL2::EndQuads()
     glError();
 }
 
-void PainterGL2::Translate(Vector2 v)
+void PainterGL2::Translate(VectorF v)
 {
     glTranslatef(v.x, v.y, 0);
     glError();
@@ -151,7 +151,7 @@ float PainterGL2::Height() const
     return height;
 }
 
-void PainterGL2::Gradient(Position start, ::Color c1, Position end, ::Color c2, Layer layer)
+void PainterGL2::Gradient(PositionF start, ::Color c1, PositionF end, ::Color c2, Layer layer)
 {
     Color(c1);
     glVertex3f(start.x, start.y, static_cast<float>(layer));

@@ -8,7 +8,7 @@ class BreakingTile {
 public:
     Tile *tile = nullptr;
     bool destroyed = true;
-    Position position{};
+    PositionF position{};
 
 public:
     BreakingTile() = default;

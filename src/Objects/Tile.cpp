@@ -98,7 +98,7 @@ BreakingTile Tile::SetCollision()
     return {this};
 }
 
-bool Tile::VertexInTile(Vector2 tile, Vector2 point) {
+bool Tile::VertexInTile(VectorF tile, VectorF point) {
   auto x1 = Size * (0 + tile.x);
   auto xp = point.x;
   auto x2 = Size * (1 + tile.x);
@@ -120,7 +120,7 @@ void Tile::Paint(Painter p, Camera) {
 
   Sprite::Name sprite = Sprite::Name::TileFull;
 
-  p.Sprite(position, Vector2(Size, Size), Layer::Tiles, sprite);
+  p.Sprite(position, SizeI{Size, Size}, Layer::Tiles, sprite);
 
   sprite = static_cast<Sprite::Name>(-1);
   switch (state) {
@@ -137,5 +137,5 @@ void Tile::Paint(Painter p, Camera) {
   }
 
   if (static_cast<int>(sprite) != -1)
-    p.Sprite(position, Vector2{Size, Size}, Layer::Tiles++, sprite);
+    p.Sprite(position, SizeI{Size, Size}, Layer::Tiles++, sprite);
 }

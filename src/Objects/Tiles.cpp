@@ -34,17 +34,17 @@ Tile* Tiles::operator()(size_t x, size_t y) {
   return &tiles[index];
 }
 
-Vectors Tiles::TilesOnRobot(const Robot& r) {
-  Vectors ret{};
+VectorsF Tiles::TilesOnRobot(const Robot& r) {
+  VectorsF ret{};
 
   auto PossibleTiles = PossibleTilesOnRobot(r.position);
   auto RobotVertices = r.Verticies();
 
-  for (Vector2& tile : PossibleTiles) {
-    Vector2 tileReal{tile.x + Model::LeftX, -tile.y - 1};
+  for (auto& tile : PossibleTiles) {
+    VectorF tileReal{tile.x + Model::LeftX, -tile.y - 1};
 
     bool isAnyVertexInTile = false;
-    for (Vector2& RobotVertex : RobotVertices) {
+    for (auto& RobotVertex : RobotVertices) {
       if (Tile::VertexInTile(tileReal, RobotVertex)) {
         isAnyVertexInTile = true;
         break;
@@ -58,14 +58,14 @@ Vectors Tiles::TilesOnRobot(const Robot& r) {
   return ret;
 }
 
-CollisionTiles Tiles::GenCollisionTiles(Vectors robotOnTiles) {
+CollisionTiles Tiles::GenCollisionTiles(VectorsF robotOnTiles) {
   CollisionTiles ret{};
   auto Add = [&](int xx, int yy, CollisionTile::Position pos) {
     if (CheckTileCords(xx, yy) && this->operator()(xx, yy)->Collisionable())
       ret.push_back({this->operator()(xx, yy), pos});
   };
 
-  for (Vector2& tile : robotOnTiles) {
+  for (auto& tile : robotOnTiles) {
     int xx = tile.x;
     int yy = tile.y;
 
@@ -117,8 +117,8 @@ void Tiles::Paint(Painter p, Camera c) {
   p.EndQuads();
 }
 
-Vectors Tiles::PossibleTilesOnRobot(Vector2 robotPosition) {
-  Vectors ret{};
+VectorsF Tiles::PossibleTilesOnRobot(VectorF robotPosition) {
+  VectorsF ret{};
 
   auto xs = robotPosition.x / Tile::Size;
   auto ys = robotPosition.y / Tile::Size;

@@ -3,37 +3,84 @@
 #include <ostream>
 #include <vector>
 
-class Vector2 {
+template <typename T>
+class Vector {
  public:
   union {
       struct {
-        float x;
-        float y;
+        T x;
+        T y;
       };
       struct {
-        float width;
-        float height;
+        T width;
+        T height;
       };
   };
 
-  Vector2(float x = 0, float y = 0);
+  Vector() : x(0), y(0) {}
 
+  template<typename U, typename V>
+  Vector(U x,V y) : x(x), y(y) {}
+  /*
+  explicit Vector(const Vector<int> &v);
+  explicit Vector(const Vector<float> &v);
+  explicit Vector(const Vector<double> &v);
+*/
   float LenghtSquared();
   float Lenght();
   float Angle();
 
-  Vector2 &operator+=(Vector2 v);
+  Vector<T> &operator+=(Vector<T> v);
+
+  template<typename U>
+  Vector<T> &operator=(Vector<U> v) {
+    x = v.x;
+    y = v.y;
+    return *this;
+  }
+
+  Vector<T> Reverse() const;
+
+public:
+  Vector<T> operator+(Vector<T> b) const;
+  Vector<T> operator-(Vector<T> b) const;
+
+  Vector<T> operator*(unsigned int s) const;
+  Vector<T> operator*(int s) const;
+  Vector<T> operator*(float s) const;
+  Vector<T> operator*(double s) const;
+
+  Vector<T> operator/(unsigned int s) const;
+  Vector<T> operator/(int s) const;
+  Vector<T> operator/(float s) const;
+  Vector<T> operator/(double s) const;
 };
 
-Vector2 operator+(Vector2 a, Vector2 b);
-Vector2 operator-(Vector2 a, Vector2 b);
-Vector2 operator*(Vector2 v, float s);
-Vector2 operator/(Vector2 v, float s);
-Vector2 operator/(float s, Vector2 v);
+Vector<float> operator+(const Vector<float> &a, const Vector<int> &b);
 
-std::ostream& operator<<(std::ostream& stream, const Vector2& v);
 
-typedef Vector2 Position;
-typedef Vector2 Size;
+template <typename T, typename U>
+Vector<U> operator/(T s, Vector<U> v);
 
-typedef std::vector<Vector2> Vectors;
+template <typename T>
+std::ostream& operator<<(std::ostream& stream, const Vector<T>& v) {
+    stream << "(" << v.x << "," << v.y << ")";
+    return stream;
+}
+
+template <typename T> using Position = Vector<T>;
+template <typename T> using Size = Vector<T>;
+
+typedef Size<int> SizeI;
+typedef Size<float> SizeF;
+typedef Size<double> SizeD;
+
+typedef Vector<int> VectorI;
+typedef Vector<float> VectorF;
+typedef Vector<double> VectorD;
+
+typedef Position<int> PositionI;
+typedef Position<float> PositionF;
+typedef Position<double> PositionD;
+
+typedef std::vector<Vector<float>> VectorsF;

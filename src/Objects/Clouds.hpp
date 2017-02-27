@@ -15,8 +15,8 @@ private:
     Texture tex1;
     Texture tex2;
 
-    Vector2 pos1;
-    Vector2 pos2;
+    PositionF pos1;
+    PositionF pos2;
 
 public:
     void Tick(float dt) override;

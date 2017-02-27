@@ -8,8 +8,8 @@ const int SIZE = 128;
 
 }
 
-Vector2 Sprite::size{};
-Vector2 Sprite::range{};
+VectorF Sprite::size{};
+VectorF Sprite::range{};
 TexturePtr Sprite::texture{};
 
 void Sprite::UseTexture() { texture->Use(); }
@@ -19,14 +19,13 @@ void Sprite::Load()
     texture = TexturePtr{new Texture{"img/sprite.png"}};
 
     range = texture->size / SIZE;
-    size = 1.0f / range;
-    //size = {0.065,1.f};
+    size = range.Reverse();
 
     LOGVV("Sprite – Range – " << range);
     LOGVV("Sprite – Size – " << size);
 }
 
-Vector2 Sprite::Coordinates(Sprite::Name sprite,
+VectorF Sprite::Coordinates(Sprite::Name sprite,
                             Sprite::VertexPosition vertexPosition, int offset) {
   int i = (static_cast<int>(sprite) + offset) % static_cast<int>(range.x);
   int j = (static_cast<int>(sprite) + offset) / static_cast<int>(range.x);

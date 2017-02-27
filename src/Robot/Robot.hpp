@@ -41,9 +41,9 @@ public:
 
 public:
     float HeightInFeets();
-    Vector2 Center();
-    Vectors Verticies() const;
-    Vector2 BottomTile(const Vectors &tiles);
+    PositionF Center();
+    VectorsF Verticies() const;
+    VectorF BottomTile(const VectorsF &tiles);
     void SetMineralToRecieve(Mineral mineral);
     void SetCollisionTiles(std::vector<CollisionTile> &&tiles);
     bool IsBreaking();
@@ -56,15 +56,15 @@ public:
     Hull hull;
 
 public:
-    Vector2 position{};
-    Vector2 velocity{};
+    PositionF position{};
+    VectorF velocity{};
     BreakingTile breakingTile{};
     RobotBreaking isBreaking = RobotBreaking::None;
     PossibleBreaking possibleBreaking{};
     std::vector<CollisionTile> collisionTiles;
 
 public:
-    const static Size size;
+    const static SizeI size;
 
 public:
     bool tileDestroy = false;

@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "../Utils/Vector2.hpp"
+#include "../Utils/Utils.hpp"
 
 class Texture {
 public:
@@ -16,8 +16,8 @@ public:
     virtual void Use();
     virtual ~Texture();
 
-    Vector2 size;
-    Vector2 textSize;
+    SizeI size;
+    SizeI textSize;
 private:
     unsigned int texID;
 };

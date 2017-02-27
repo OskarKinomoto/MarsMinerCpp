@@ -26,7 +26,7 @@ float CollisionTile::Bottom() {
   return tile->y * Tile::Size + 1;
 }
 
-bool CollisionTile::Collide(Vector2 robot) {
+bool CollisionTile::Collide(VectorF robot) {
   switch (position) {
     case Position::Bottom:
       return robot.y <= Bottom();

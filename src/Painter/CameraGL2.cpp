@@ -4,9 +4,9 @@
 
 #include "../Robot/Robot.hpp"
 
-CameraGL2::CameraGL2(Event<Vector2> windowSize) : windowSize(windowSize) {}
+CameraGL2::CameraGL2(Event<SizeI> windowSize) : windowSize(windowSize) {}
 
-void CameraGL2::SetPosition(Position position, int min, int max) {
+void CameraGL2::SetPosition(PositionF position, int min, int max) {
   this->position = position;
     if (-position.x - windowSize().width / 2 < -max)
     position.x = -(-max + windowSize().width / 2);

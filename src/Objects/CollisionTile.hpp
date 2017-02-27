@@ -29,7 +29,7 @@ class CollisionTile {
   float Left();
   float Top();
   float Bottom();
-  bool Collide(Vector2 robot);
+  bool Collide(VectorF robot);
 };
 
 bool operator<(const CollisionTile& a, const CollisionTile& b);

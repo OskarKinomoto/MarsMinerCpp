@@ -37,7 +37,7 @@ size_t lastFrameItr = 0;
 
 } /* namespace */
 
-SDL_OpenGL::SDL_OpenGL(Painter p, OpenglVersion version, Size windowSize)
+SDL_OpenGL::SDL_OpenGL(Painter p, OpenglVersion version, SizeI windowSize)
     : painter(p) {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
     throw Exception{"Failed to init SDL\n"};
@@ -116,12 +116,12 @@ SDL_OpenGL::~SDL_OpenGL() {
   SDL_Quit();
 }
 
-Size SDL_OpenGL::size()
+SizeI SDL_OpenGL::size()
 {
     int w = 0;
     int h = 0;
     SDL_GetWindowSize(static_cast<SDL_Window*>(window), &w, &h);
-    return {static_cast<float>(w), static_cast<float>(h)};
+    return {w, h};
 }
 
 namespace {

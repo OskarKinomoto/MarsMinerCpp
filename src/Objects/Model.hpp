@@ -27,6 +27,6 @@ public:
     void Tick(float dt) override;
 
 private:
-    void ProcessBreakingTile(Vectors tilesOnRobot, RobotBreaking robotStatusBreking, bool robotOldStatus);
-    Tile *TileToBreak(const Vectors &tilesOnRobot, RobotBreaking robotStatusBreking);
+    void ProcessBreakingTile(VectorsF tilesOnRobot, RobotBreaking robotStatusBreking, bool robotOldStatus);
+    Tile *TileToBreak(const VectorsF &tilesOnRobot, RobotBreaking robotStatusBreking);
 };

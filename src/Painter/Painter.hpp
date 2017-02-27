@@ -12,13 +12,13 @@ public:
     virtual void CleanView() = 0;
 
     virtual void BeginQuads() = 0;
-    virtual void Square(Position position, Size size, Layer layer) = 0;
-    virtual void Sprite(Position position, Size size, const Layer layer, Sprite::Name sprite, int offset = 0) = 0;
+    virtual void Square(PositionF position, SizeI size, Layer layer) = 0;
+    virtual void Sprite(PositionF position, SizeI size, const Layer layer, Sprite::Name sprite, int offset = 0) = 0;
     virtual void EndQuads() = 0;
 
-    virtual void Translate(Vector2 v) = 0;
+    virtual void Translate(VectorF v) = 0;
 
-    virtual void Gradient(Position start, Color c1, Position end, Color c2, Layer layer) = 0;
+    virtual void Gradient(PositionF start, Color c1, PositionF end, Color c2, Layer layer) = 0;
     virtual void Color(Color color) = 0;
 
     virtual void Textures(bool enable) = 0;

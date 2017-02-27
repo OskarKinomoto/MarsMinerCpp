@@ -1,8 +1,6 @@
 #include "Engine.hpp"
 
 #include <cmath>
-#include "../Utils/Exception.hpp"
-#include "../Utils/Log.hpp"
 
 constexpr float AngleMargin = M_PI / 12;
 
@@ -24,13 +22,13 @@ RobotBreaking Engine::Breaking() {
   return RobotBreaking::None;
 }
 
-Vector2 Engine::Force() {
-  Vector2 force{};
+VectorF Engine::Force() {
+  VectorF force{};
 
   if (state.running) {
-    force.x = cos(state.angle) * HorizontalForce();
+    force.x = std::cos(state.angle) * HorizontalForce();
 
-    auto y = sin(state.angle);
+    auto y = std::sin(state.angle);
     if (y > 0)
       force.y = y * UpForce();
     else if (y < 0)
@@ -53,7 +51,7 @@ float Engine::HorizontalForce() {
 
 void Engine::SetFromKeyboard(bool left, bool right, bool up, bool down)
 {
-    Vector2 keyboardArrows{};
+    VectorI keyboardArrows{};
     if (left ^ right) {
         if (left)
             keyboardArrows.x = -1;

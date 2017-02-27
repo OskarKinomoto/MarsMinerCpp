@@ -156,7 +156,7 @@ Texture::Texture(std::string path) {
   int height;
   texID = png_texture_load(path.c_str(), &width, &height);
 
-  size = {static_cast<float>(width), static_cast<float>(height)};
+  size = {width, height};
 }
 
 void Texture::Use() {

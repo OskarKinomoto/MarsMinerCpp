@@ -10,11 +10,11 @@ public:
     static float HeightConst;
 
 public:
-    static Vector2 Forces(const Robot& robot);
+    static VectorF Forces(const Robot& robot);
 
 private:
-    static Vector2 Gravity();
-    static Vector2 DragForce(Vector2 velocity);
-    static Vector2 HightForce(float height);
-    static Vector2 FrictionForce(bool engine, Vector2 velocity);
+    static VectorF Gravity();
+    static VectorF DragForce(VectorF velocity);
+    static VectorF HightForce(float height);
+    static VectorF FrictionForce(bool engine, VectorF velocity);
 };

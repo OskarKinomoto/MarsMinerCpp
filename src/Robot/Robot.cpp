@@ -23,7 +23,7 @@
     velocity.y = 0; \
   } while (0);
 
-const Size Robot::size{Tile::Size * 0.8f, Tile::Size * 0.8f};
+const SizeI Robot::size{Tile::Size * 0.8f, Tile::Size * 0.8f};
 float Robot::deepLogDt = 1.f;
 float Robot::margin = 5.f;
 
@@ -63,12 +63,12 @@ float Robot::HeightInFeets() {
   return (position.y / Tile::Size) * 0.25f;
 }
 
-Vector2 Robot::Center() {
-  return position + (size / 2.0f);
+PositionF Robot::Center() {
+  return position + (size * 0.5f);
 }
 
-Vectors Robot::Verticies() const {
-  Vectors ret(4);
+VectorsF Robot::Verticies() const {
+  VectorsF ret(4);
   ret.at(0) = position;
   ret.at(1) = {position.x, position.y + size.y};
   ret.at(2) = {position.x + size.y, position.y};
@@ -76,7 +76,7 @@ Vectors Robot::Verticies() const {
   return ret;
 }
 
-Vector2 Robot::BottomTile(const Vectors& tiles) {
+VectorF Robot::BottomTile(const VectorsF& tiles) {
   if (tiles.size() == 1)
     return tiles[0];
 
@@ -129,7 +129,7 @@ void Robot::TickMove(float dt) {
     // TODO: engine.UseFuel(fuel, dt);
   }
 
-  Vector2 forces = engine.Force() + Physics::Forces(*this);
+  auto forces = engine.Force() + Physics::Forces(*this);
 
   velocity += forces * dt;
 

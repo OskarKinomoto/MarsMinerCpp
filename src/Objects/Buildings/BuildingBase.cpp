@@ -28,16 +28,16 @@ bool BuildingBase::CanEnter() {
 }
 
 void BuildingBase::Paint(Painter p, Camera) {
-  Vector2 position{static_cast<float>(LeftXPosition),
+  PositionF position{static_cast<float>(LeftXPosition),
                    static_cast<float>((texHeight - 1) * Tile::Size)};
-  Vector2 size{Tile::Size, Tile::Size};
+  SizeI size{Tile::Size, Tile::Size};
 
   Sprite::UseTexture();
   p.Textures(true);
   p.BeginQuads();
   for (int i = 0; i < texHeight; ++i)
     for (int j = 0; j < texWidth; ++j)
-      p.Sprite(position + Vector2(Tile::Size * j, -i * Tile::Size),
+      p.Sprite(position + PositionF{Tile::Size * j, -i * Tile::Size},
                      size, Layer::Buildings, sprite, i * texWidth + j);
   p.EndQuads();
 }

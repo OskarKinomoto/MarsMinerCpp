@@ -15,7 +15,7 @@ class Tile : public PaintInterface {
   int x;
   int y;
 
-  Vector2 position;
+  PositionF position;
 
   Tile();
   Tile(int x, int y, bool exists);
@@ -30,7 +30,7 @@ class Tile : public PaintInterface {
   bool Collisionable() const;
   BreakingTile SetCollision();
 
-  static bool VertexInTile(Vector2 tile, Vector2 point);
+  static bool VertexInTile(VectorF tile, VectorF point);
 
  private:
   enum class State {

@@ -2,51 +2,96 @@
 
 #include <cmath>
 
-Vector2::Vector2(float x, float y) : x(x), y(y) {}
+template class Vector<int>;
+template class Vector<float>;
+template class Vector<double>;
 
-float Vector2::LenghtSquared() {
+template <typename T>
+float Vector<T>::LenghtSquared() {
   return x * x + y * y;
 }
 
-float Vector2::Lenght() {
-    return static_cast<float>(std::sqrt(x * x + y * y));
+template <typename T>
+float Vector<T>::Lenght() {
+  return std::sqrt(x * x + y * y);
 }
 
-float Vector2::Angle()
-{
-    return std::atan2(y, x);
+template <typename T>
+float Vector<T>::Angle() {
+  return std::atan2(y, x);
 }
 
-Vector2 &Vector2::operator+=(Vector2 v)
-{
+template <typename T>
+Vector<T>& Vector<T>::operator+=(Vector<T> v) {
   x += v.x;
   y += v.y;
+
   return *this;
 }
 
-Vector2 operator+(Vector2 a, Vector2 b) {
-  return {a.x + b.x, a.y + b.y};
+template<typename T>
+Vector<T> Vector<T>::Reverse() const
+{
+    return {1.0f / x, 1.0f / y};
 }
 
-Vector2 operator-(Vector2 a, Vector2 b) {
-  return {a.x - b.x, a.y - b.y};
+template <typename T>
+Vector<T> Vector<T>::operator+(Vector<T> b)  const{
+  return {x + b.x, y + b.y};
 }
 
-Vector2 operator*(Vector2 v, float s) {
-  return {v.x * s, v.y * s};
+template <typename T>
+Vector<T> Vector<T>::operator-(Vector<T> b)  const{
+  return {x - b.x, y - b.y};
 }
 
-Vector2 operator/(Vector2 v, float s) {
-  return {v.x / s, v.y / s};
+template <typename T>
+Vector<T> Vector<T>::operator*(unsigned int s)  const{
+  return {x * s, y * s};
 }
 
-Vector2 operator/(float s, Vector2 v)
+template <typename T>
+Vector<T> Vector<T>::operator*(int s)  const{
+  return {x * s, y * s};
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator*(float s)  const{
+  return {x * s, y * s};
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator*(double s) const {
+  return {x * s, y * s};
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator/(unsigned int s) const {
+  return {x * static_cast<float>(s), y / static_cast<float>(s)};
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator/(int s) const {
+  return {x / static_cast<float>(s), y / static_cast<float>(s)};
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator/(float s) const {
+  return {x / s, y / s};
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator/(double s) const {
+  return {x / s, y / s};
+}
+
+template<typename T, typename U>
+Vector<U> operator/(T s, Vector<U> v)
 {
     return {s / v.x, s / v.y};
 }
 
-std::ostream &operator<<(std::ostream &stream, const Vector2 &v)
+Vector<float> operator+(const Vector<float> &a, const Vector<int> &b)
 {
-    stream << "(" << v.x << "," << v.y << ")";
-    return stream;
+    return {a.x + b.x, a.y + b.y};
 }

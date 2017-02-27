@@ -4,10 +4,10 @@
 
 class CameraBase {
 public:
-    Position position;
+    PositionF position;
 
 public:
-    virtual void SetPosition(Position position, int min, int max) = 0;
+    virtual void SetPosition(PositionF position, int min, int max) = 0;
     virtual void Begin() = 0;
     virtual void Translate() = 0;
     virtual void TranslateBack() = 0;

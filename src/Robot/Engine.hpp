@@ -2,7 +2,7 @@
 
 #include "Enums.hpp"
 
-#include "../Utils/Vector2.hpp"
+#include "../Utils/Utils.hpp"
 
 class Engine {
 public:
@@ -22,7 +22,7 @@ public:
     Model model = Model::Standard;
 
     RobotBreaking Breaking();
-    Vector2 Force();
+    VectorF Force();
 
     float UpForce();
     float DownForce();
