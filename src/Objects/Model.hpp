@@ -2,7 +2,6 @@
 
 #include "Tiles.hpp"
 
-
 #include "../Interfaces/TickInterface.hpp"
 #include "../Robot/Robot.hpp"
 

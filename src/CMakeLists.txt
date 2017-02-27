@@ -23,6 +23,12 @@ SET(MAIN_SOURCES
   Objects/Tile.cpp
   Objects/Tiles.cpp
   Objects/CollisionTile.cpp
+  Objects/Buildings/BuildingBase.cpp
+  Objects/Buildings/Buildings.cpp
+  Objects/Buildings/GasStation.cpp
+  Objects/Buildings/Shop.cpp
+  Objects/Buildings/RepairShop.cpp
+  Objects/Buildings/EnhancementShop.cpp
   Robot/Robot.cpp
   Robot/Cargo.cpp
   Robot/Drill.cpp

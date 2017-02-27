@@ -88,3 +88,5 @@ private:
     void RecieveMineral();
     void StopMoving();
 };
+
+typedef const Robot& RobotC;

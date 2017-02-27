@@ -1,6 +1,6 @@
 #include "Controler.hpp"
 
-Controler::Controler(Action stop, Camera c) : c(c)
+Controler::Controler(Action stop, Camera c) : c(c), buildings(m.robot)
 {
     keyboard.SetEvent(Keyboard::Key::Esc, stop);
 }
@@ -34,7 +34,7 @@ void Controler::Paint(Painter p, Camera c)
     clouds.Paint(p, c);
     grass.Paint(p, c);
     m.tiles.Paint(p,c);
-    // buildings
+    buildings.Paint(p,c);
     m.robot.Paint(p,c);
     // window
 }

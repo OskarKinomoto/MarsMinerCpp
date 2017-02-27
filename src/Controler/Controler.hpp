@@ -12,6 +12,7 @@
 #include "../Objects/Background.hpp"
 #include "../Objects/Clouds.hpp"
 #include "../Objects/Grass.hpp"
+#include "../Objects/Buildings/Buildings.hpp"
 
 
 class Controler : public PaintInterface, public TickInterface, public LoadInterface {
@@ -40,7 +41,8 @@ private:
 
     Model m;
 
-    Background background;
-    Clouds clouds;
-    Grass grass;
+    Background background{};
+    Clouds clouds{};
+    Grass grass{};
+    Buildings buildings;
 };

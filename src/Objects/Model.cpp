@@ -2,14 +2,14 @@
 
 #include "../Utils/Log.hpp"
 
-Tile * Model::TileToBreak(const Vectors& tilesOnRobot,
-                        RobotBreaking robotStatusBreking) {
+Tile* Model::TileToBreak(const Vectors& tilesOnRobot,
+                         RobotBreaking robotStatusBreking) {
   auto robotTilePosition = tilesOnRobot[0];
   auto robotTilePosToTile = [&](int x, int y) {
     return tiles(robotTilePosition.x + x, robotTilePosition.y + y);
   };
 
-  Tile *tileToBreak = nullptr;
+  Tile* tileToBreak = nullptr;
   switch (robotStatusBreking) {
     case RobotBreaking::Left:
       tileToBreak = robotTilePosToTile(-1, 0);
@@ -31,10 +31,10 @@ Tile * Model::TileToBreak(const Vectors& tilesOnRobot,
 void Model::ProcessBreakingTile(Vectors tilesOnRobot,
                                 RobotBreaking robotStatusBreking,
                                 bool robotOldStatus) {
-  Tile *tileToBreak = TileToBreak(tilesOnRobot, robotStatusBreking);
+  Tile* tileToBreak = TileToBreak(tilesOnRobot, robotStatusBreking);
 
   if (!tileToBreak)
-      return;
+    return;
 
   if (tileToBreak->Exists()) {
     if (tileToBreak->Breakable()) {
@@ -65,8 +65,8 @@ void Model::Tick(float dt) {
   auto tilesOnRobot = tiles.TilesOnRobot(robot);
   robot.SetCollisionTiles(tiles.GenCollisionTiles(tilesOnRobot));
 
-  if(robot.tileDestroy)
-      breakingTileOld.Destroy();
+  if (robot.tileDestroy)
+    breakingTileOld.Destroy();
 
   if (robot.newDestroy)
     ProcessBreakingTile(tilesOnRobot, robot.isBreaking, robotOldStatus);
