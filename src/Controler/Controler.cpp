@@ -38,4 +38,5 @@ void Controler::Paint(Painter p, Camera c) {
 void Controler::Load() {
   Sprite::Load();
   freeType.Load();
+  buildings.SetStones(m.tiles);
 }

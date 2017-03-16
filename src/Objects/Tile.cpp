@@ -98,6 +98,11 @@ BreakingTile Tile::SetCollision()
     return {this};
 }
 
+void Tile::SetRock()
+{
+    state = State::NonBreakable;
+}
+
 bool Tile::VertexInTile(VectorF tile, VectorF point) {
   auto x1 = Size * (0 + tile.x);
   auto xp = point.x;

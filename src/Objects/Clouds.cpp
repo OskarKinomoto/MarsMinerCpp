@@ -20,23 +20,26 @@ void Clouds::Tick(float dt) {
 }
 
 void Clouds::Paint(Painter p, Camera) {
+  int width2 = tex2.size.x;
+  int width1 = tex1.size.x;
+
   p.Textures(true);
 
   tex2.Use();
   p.BeginQuads();
   p.Square(pos2 + VectorF{Model::LeftTile, 0}, tex2.size, Layer::CloudsLow);
-  p.Square(pos2 + VectorF{Model::LeftTile - tex2.size.x, 0}, tex2.size,
+  p.Square(pos2 + VectorF{Model::LeftTile - width2, 0}, tex2.size,
            Layer::CloudsLow);
-  p.Square(pos2 + VectorF{Model::LeftTile + tex2.size.x, 0}, tex2.size,
+  p.Square(pos2 + VectorF{Model::LeftTile + width2, 0}, tex2.size,
            Layer::CloudsLow);
   p.EndQuads();
 
   tex1.Use();
   p.BeginQuads();
   p.Square(pos1 + VectorF{Model::LeftTile, 0}, tex1.size, Layer::Clouds);
-  p.Square(pos1 + VectorF{Model::LeftTile - tex1.size.x, 0}, tex1.size,
+  p.Square(pos1 + VectorF{Model::LeftTile - width1, 0}, tex1.size,
            Layer::Clouds);
-  p.Square(pos1 + VectorF{Model::LeftTile + tex1.size.x, 0}, tex1.size,
+  p.Square(pos1 + VectorF{Model::LeftTile + width1, 0}, tex1.size,
            Layer::Clouds);
   p.EndQuads();
 }

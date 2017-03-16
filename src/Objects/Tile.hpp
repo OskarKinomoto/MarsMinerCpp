@@ -30,6 +30,8 @@ class Tile : public PaintInterface {
   bool Collisionable() const;
   BreakingTile SetCollision();
 
+  void SetRock();
+
   static bool VertexInTile(VectorF tile, VectorF point);
 
  private:

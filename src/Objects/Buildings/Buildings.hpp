@@ -8,6 +8,8 @@
 #include "RepairShop.hpp"
 #include "EnhancementShop.hpp"
 
+#include "../Tiles.hpp"
+
 class Buildings : public PaintInterface {
 public:
     std::vector<BuildingBase> buildings;
@@ -15,6 +17,8 @@ public:
     Buildings(Robot &r);
 
     void Load(Robot &r);
+
+    void SetStones(Tiles &tiles);
 
     // PaintInterface interface
 public:

@@ -118,8 +118,8 @@ VectorsF Tiles::PossibleTilesOnRobot(VectorF robotPosition) {
   auto xs = robotPosition.x / Tile::Size;
   auto ys = robotPosition.y / Tile::Size;
 
-  int yy = std::ceil(ys * -1) - 1;
-  int xx = std::floor(xs) - Model::LeftX;
+  int yy = static_cast<int>(std::ceil(ys * -1)) - 1;
+  int xx = static_cast<int>(std::floor(xs)) - Model::LeftX;
 
   auto Add = [&](float x, float y) { ret.push_back({x, y}); };
 
