@@ -10,23 +10,24 @@
 class Robot;
 
 class Tiles : public PaintInterface {
-private:
-    std::vector<Tile> tiles;
+ private:
+  std::vector<Tile> tiles;
 
-public:
-    Tiles();
+ public:
+  Tiles();
 
-public:
-    Tile* operator()(size_t x, size_t y);
+ public:
+  Tile* operator()(size_t x, size_t y);
+  Tile* at(size_t x, size_t y);
 
-public:
-    VectorsF TilesOnRobot(const Robot &r);
-    CollisionTiles GenCollisionTiles(VectorsF robotOnTiles);
+ public:
+  VectorsF TilesOnRobot(const Robot& r);
+  CollisionTiles GenCollisionTiles(VectorsF robotOnTiles);
 
-public:
-    void Paint(Painter p, Camera c) override;
+ public:
+  void Paint(Painter p, Camera c) override;
 
-private:
-    VectorsF PossibleTilesOnRobot(VectorF robotPosition);
-    bool CheckTileCords(int xx, int yy);
+ private:
+  VectorsF PossibleTilesOnRobot(VectorF robotPosition);
+  bool CheckTileCords(int xx, int yy);
 };

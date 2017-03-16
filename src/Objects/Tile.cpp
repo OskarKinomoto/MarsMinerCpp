@@ -66,7 +66,7 @@ Tile::Tile(int x, int y) : x(x), y(y), position(x * Size, (y - 1) * Size) {
 
 void Tile::Destroy() {
   collisionable = false;
-  mineral = Mineral::None;
+  mineral = &Mineral::None;
   state = State::None;
 }
 
@@ -83,7 +83,7 @@ void Tile::Breakable(bool b) {
     state = b ? State::Exist : State::NonBreakable;
 }
 
-Mineral Tile::GetMineral() const {
+const Mineral *Tile::GetMineral() const {
   return mineral;
 }
 
@@ -120,7 +120,7 @@ void Tile::Paint(Painter p, Camera) {
 
   Sprite::Name sprite = Sprite::Name::TileFull;
 
-  p.Sprite(position, SizeI{Size, Size}, Layer::Tiles, sprite);
+  p.Sprite(position, SizeUI{Size, Size}, Layer::Tiles, sprite);
 
   sprite = static_cast<Sprite::Name>(-1);
   switch (state) {
@@ -128,7 +128,7 @@ void Tile::Paint(Painter p, Camera) {
       sprite = RockTile(x, y);
       break;
     case State::Mineral:
-      sprite = mineral.GetSprite();
+      sprite = mineral->GetSprite();
       break;
 
     case State::Exist:
@@ -137,5 +137,5 @@ void Tile::Paint(Painter p, Camera) {
   }
 
   if (static_cast<int>(sprite) != -1)
-    p.Sprite(position, SizeI{Size, Size}, Layer::Tiles++, sprite);
+    p.Sprite(position, SizeUI{Size, Size}, Layer::Tiles++, sprite);
 }

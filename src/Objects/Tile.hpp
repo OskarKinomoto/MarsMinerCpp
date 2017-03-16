@@ -26,7 +26,7 @@ class Tile : public PaintInterface {
   bool Exists() const;
   bool Breakable() const;
   void Breakable(bool);
-  Mineral GetMineral() const;
+  const Mineral *GetMineral() const;
   bool Collisionable() const;
   BreakingTile SetCollision();
 
@@ -44,7 +44,7 @@ class Tile : public PaintInterface {
   bool collisionable;
   bool breakable;
 
-  Mineral mineral;
+  const Mineral *mineral = nullptr;
 
   bool GenerateTile();
 

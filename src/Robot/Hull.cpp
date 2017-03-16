@@ -14,8 +14,10 @@ void Hull::LooseLife(float lifeAmount) {
 
   current -= lifeAmount;
 
+  LOGV("Hull: " << current << "/" << Max());
+
   if (current <= 0) {
-    // TODO: throw GameOver{GameOver::Life};
+    throw GameOverException{GameOverException::Type::Life};
   }
 }
 

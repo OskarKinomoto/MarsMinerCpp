@@ -31,7 +31,7 @@ VectorF Physics::HightForce(float height) {
 VectorF Physics::FrictionForce(bool engine, VectorF velocity) {
   VectorF ret{};
 
-  if (velocity.y == 0 && velocity.x != 0) {
+  if (isZero(velocity.y) && !isZero(velocity.x)) {
     ret.x = -velocity.x * FrictionConst;
 
     if (!engine) {

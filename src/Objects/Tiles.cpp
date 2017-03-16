@@ -13,25 +13,20 @@ Tiles::Tiles() {
 
   for (size_t x = 0; x < XSize; x++)
     for (size_t y = 0; y < Model::MaxDepth; y++)
-      *this->operator()(x, y) = Tile(Model::LeftX + x, -y);
-
-  /*
-   * 	foreach (var b in bs) {
-              var left = (int)Math.Floor(b.left() / Tile.Size);
-              var right = (int)Math.Floor(b.right() / Tile.Size);
-
-              for (int x = left; x < right; ++x)
-                  tiles[x - Model.MinX, 0].breakable = false;
-                  */
+      *at(x, y) = Tile(Model::LeftX + x, -y);
 }
 
 Tile* Tiles::operator()(size_t x, size_t y) {
-    size_t index = x + y * Model::MapXSize;
+  size_t index = x + y * Model::MapXSize;
 
-    if (index >= tiles.size())
-        throw Exception{"Tiles – Out of range"};
+  if (index >= tiles.size())
+    throw Exception{"Tiles – Out of range"};
 
   return &tiles[index];
+}
+
+Tile* Tiles::at(size_t x, size_t y) {
+  return this->operator()(x, y);
 }
 
 VectorsF Tiles::TilesOnRobot(const Robot& r) {
@@ -61,8 +56,8 @@ VectorsF Tiles::TilesOnRobot(const Robot& r) {
 CollisionTiles Tiles::GenCollisionTiles(VectorsF robotOnTiles) {
   CollisionTiles ret{};
   auto Add = [&](int xx, int yy, CollisionTile::Position pos) {
-    if (CheckTileCords(xx, yy) && this->operator()(xx, yy)->Collisionable())
-      ret.push_back({this->operator()(xx, yy), pos});
+    if (CheckTileCords(xx, yy) && at(xx, yy)->Collisionable())
+      ret.push_back({at(xx, yy), pos});
   };
 
   for (auto& tile : robotOnTiles) {
@@ -108,7 +103,7 @@ void Tiles::Paint(Painter p, Camera c) {
 
   for (int x = xStart; x < xEnd; ++x)
     for (int y = yStart; y <= yEnd; ++y)
-      this->operator()(x - Model::LeftTile, -y)->Paint(p, c);
+      at(x - Model::LeftTile, -y)->Paint(p, c);
 
   for (auto& tile : tiles) {
     tile.Paint(p, c);

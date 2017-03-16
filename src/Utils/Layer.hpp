@@ -10,9 +10,11 @@ public:
     static const Layer Buildings;
     static const Layer Minerals;
     static const Layer Robot;
-    static const Layer Window;
+    static const Layer Surface;
+    static const Layer Text;
 
     const Layer operator++(int) const;
+    const Layer operator+(float s) const;
 
     explicit operator float();
 private:

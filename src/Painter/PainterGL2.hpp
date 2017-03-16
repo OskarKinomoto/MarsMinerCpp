@@ -8,8 +8,8 @@ public:
     void CleanView() override;
 
     void BeginQuads() override;
-    void Square(PositionF position, SizeI size, Layer layer) override;
-    void Sprite(PositionF position, SizeI size, const Layer layer, Sprite::Name sprite, int offset = 0) override;
+    void Square(PositionF position, SizeUI size, Layer layer) override;
+    void Sprite(PositionF position, SizeUI size, const Layer layer, Sprite::Name sprite, int offset = 0) override;
     void EndQuads() override;
 
     void Translate(VectorF v) override;

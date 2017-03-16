@@ -12,8 +12,8 @@ public:
     virtual void CleanView() = 0;
 
     virtual void BeginQuads() = 0;
-    virtual void Square(PositionF position, SizeI size, Layer layer) = 0;
-    virtual void Sprite(PositionF position, SizeI size, const Layer layer, Sprite::Name sprite, int offset = 0) = 0;
+    virtual void Square(PositionF position, SizeUI size, Layer layer) = 0;
+    virtual void Sprite(PositionF position, SizeUI size, const Layer layer, Sprite::Name sprite, int offset = 0) = 0;
     virtual void EndQuads() = 0;
 
     virtual void Translate(VectorF v) = 0;

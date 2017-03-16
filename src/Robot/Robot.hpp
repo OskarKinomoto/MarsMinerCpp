@@ -44,7 +44,7 @@ public:
     PositionF Center();
     VectorsF Verticies() const;
     VectorF BottomTile(const VectorsF &tiles);
-    void SetMineralToRecieve(Mineral mineral);
+    void SetMineralToRecieve(const Mineral *mineral);
     void SetCollisionTiles(std::vector<CollisionTile> &&tiles);
     bool IsBreaking();
     void SetState(State state);
@@ -76,7 +76,7 @@ private:
 
 private:
     float s = 0;
-    Mineral mineral{};
+    const Mineral *mineral = nullptr;
     State state = State::Move;
     Sprite::Name sprite = Sprite::Name::RobotLeft;
 

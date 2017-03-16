@@ -24,5 +24,4 @@ public:
     static float Max(Model m);
     static float Endurance(Model m);
     static float HitMultiply(Model m);
-
 };

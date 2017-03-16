@@ -12,14 +12,20 @@ public:
         Text,
     };
 
+    enum class GLType {
+        RGBA,
+        RED,
+    };
+
+    Texture() = default;
     Texture(std::string path);
+    Texture(void *buf, SizeUI size, GLType glType);
     virtual void Use();
     virtual ~Texture();
 
-    SizeI size;
-    SizeI textSize;
+    SizeUI size;
 private:
-    unsigned int texID;
+    uint texID;
 };
 
 typedef std::unique_ptr<Texture> TexturePtr;

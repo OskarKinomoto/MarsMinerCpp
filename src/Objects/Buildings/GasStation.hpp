@@ -1,5 +1,8 @@
 #pragma once
 
-class GasStation {
+#include "BuildingBase.hpp"
 
+class GasStation : public BuildingBase {
+ public:
+  GasStation(Robot& r);
 };

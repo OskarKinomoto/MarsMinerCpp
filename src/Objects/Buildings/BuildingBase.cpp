@@ -30,7 +30,7 @@ bool BuildingBase::CanEnter() {
 void BuildingBase::Paint(Painter p, Camera) {
   PositionF position{static_cast<float>(LeftXPosition),
                    static_cast<float>((texHeight - 1) * Tile::Size)};
-  SizeI size{Tile::Size, Tile::Size};
+  SizeUI size{Tile::Size, Tile::Size};
 
   Sprite::UseTexture();
   p.Textures(true);

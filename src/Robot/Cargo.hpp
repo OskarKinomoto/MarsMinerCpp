@@ -14,10 +14,10 @@ public:
 public:
     Model model = Model::Standard;
 
-    std::vector<Mineral> minerals;
+    std::vector<const Mineral*> minerals;
 
 public:
-    bool Add(const Mineral &mineral);
+    bool Add(const Mineral *mineral);
 
 public:
     size_t max();

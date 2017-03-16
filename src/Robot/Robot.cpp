@@ -30,6 +30,7 @@ float Robot::margin = 5.f;
 namespace {
 
 constexpr float angleMarginForRobotDirection = 0.1f;
+
 }
 
 void Robot::Paint(Painter p, Camera) {
@@ -37,7 +38,7 @@ void Robot::Paint(Painter p, Camera) {
   Sprite::UseTexture();
 
   p.BeginQuads();
-  p.Sprite(position, size, Layer::Robot, sprite);
+  p.Sprite(position, {size.x, size.y}, Layer::Robot, sprite);
   p.EndQuads();
 }
 
@@ -93,7 +94,7 @@ VectorF Robot::BottomTile(const VectorsF& tiles) {
   return tiles[1];
 }
 
-void Robot::SetMineralToRecieve(Mineral mineral) {
+void Robot::SetMineralToRecieve(const Mineral* mineral) {
   this->mineral = mineral;
 }
 
@@ -164,7 +165,7 @@ void Robot::TickMove(float dt) {
     switch (tile.position) {
       case CollisionTile::Position::Bottom:
         if (possibleBreaking.IsDown() && tile.Breakable() && canBreak) {
-          if (isBreaking == RobotBreaking::None && velocity.y != 0) {
+          if (isBreaking == RobotBreaking::None && !isZero(velocity.y)) {
             isBreaking = RobotBreaking::Down;
             possibleBreaking.Down = false;
           }
@@ -221,6 +222,8 @@ void Robot::TickMove(float dt) {
 void Robot::TickBreak(float dt) {
   // drill.UseFuel(fuel, dt);
 
+  LOGV(breakingTile.position);
+
   auto d = breakingTile.position - position;
   auto dist = d.Lenght();
   auto move = drill.DrillingSpeed() * dt;
@@ -237,10 +240,10 @@ void Robot::TickBreak(float dt) {
 }
 
 void Robot::RecieveMineral() {
-  if (mineral.notNull)
+  if (mineral && mineral->notNull)
     cargo.Add(mineral);
 
-  mineral = Mineral::None;
+  mineral = &Mineral::None;
 }
 
 void Robot::SetState(Robot::State state) {

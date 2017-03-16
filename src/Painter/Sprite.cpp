@@ -47,3 +47,19 @@ VectorF Sprite::Coordinates(Sprite::Name sprite,
 
   throw new std::exception();
 }
+
+std::array<VectorF, 4> Sprite::Coordinates(Sprite::Name sprite, int offset)
+{
+    std::array<VectorF, 4> ret{};
+
+    int i = (static_cast<int>(sprite) + offset) % static_cast<int>(range.x);
+    int j = (static_cast<int>(sprite) + offset) / static_cast<int>(range.x);
+    j = 15 - j;
+
+    ret[0] = {i * size.x, j * size.y};
+    ret[1] = {(i + 1) * size.x, j * size.y};
+    ret[2] = {(i + 1) * size.x, (j + 1) * size.y};
+    ret[3] = {i * size.x, (j + 1) * size.y};
+
+    return ret;
+}

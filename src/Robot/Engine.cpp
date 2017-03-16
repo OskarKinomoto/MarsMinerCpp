@@ -2,21 +2,21 @@
 
 #include <cmath>
 
-constexpr float AngleMargin = M_PI / 12;
+constexpr float AngleMargin = pi<float> / 12;
 
 RobotBreaking Engine::Breaking() {
-  if (-state.angle > -AngleMargin + M_PI / 2 &&
-      -state.angle < AngleMargin + M_PI / 2)
+  if (-state.angle > -AngleMargin + pi<float> / 2 &&
+      -state.angle < AngleMargin + pi<float> / 2)
     return RobotBreaking::Down;
 
-  if (state.angle > -AngleMargin + M_PI / 2 &&
-      state.angle < AngleMargin + M_PI / 2)
+  if (state.angle > -AngleMargin + pi<float> / 2 &&
+      state.angle < AngleMargin + pi<float> / 2)
     return RobotBreaking::Up;
 
   if (state.angle < AngleMargin && state.angle > -AngleMargin)
     return RobotBreaking::Right;
 
-  if (state.angle < AngleMargin + M_PI && state.angle > -AngleMargin + M_PI)
+  if (state.angle < AngleMargin + pi<float> && state.angle > -AngleMargin + pi<float>)
     return RobotBreaking::Left;
 
   return RobotBreaking::None;

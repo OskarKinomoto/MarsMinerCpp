@@ -2,7 +2,7 @@
 
 #include "../Objects/Model.hpp"
 
-const SizeI Grass::size{60, 40};
+const SizeUI Grass::size{60, 40};
 
 void Grass::Paint(Painter p, Camera) {
   Sprite::UseTexture();

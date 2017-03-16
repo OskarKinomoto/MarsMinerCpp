@@ -159,6 +159,40 @@ Texture::Texture(std::string path) {
   size = {width, height};
 }
 
+Texture::Texture(void* buf, SizeUI size, GLType glType) : size(size) {
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+  glError();
+  //LOGV("Texture: Size – " << size);
+  glGenTextures(1, &texID);
+  glError();
+  Use();
+
+  uint type = 0;
+  switch (glType) {
+    case GLType::RED:
+      type = GL_RED;
+      break;
+    case GLType::RGBA:
+      type = GL_RGBA;
+      break;
+  }
+
+  glTexImage2D(GL_TEXTURE_2D, 0, type, size.width, size.height, 0, type,
+               GL_UNSIGNED_BYTE, buf);
+  glError();
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glError();
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glError();
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glError();
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glError();
+
+  //LOGV("Texture: ID – " << texID);
+}
+
 void Texture::Use() {
   glBindTexture(GL_TEXTURE_2D, texID);
   glError();

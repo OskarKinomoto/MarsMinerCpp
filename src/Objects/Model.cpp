@@ -21,7 +21,8 @@ Tile* Model::TileToBreak(const VectorsF& tilesOnRobot,
       robotTilePosition = robot.BottomTile(tilesOnRobot);
       tileToBreak = robotTilePosToTile(0, 1);
       break;
-    default:
+  case RobotBreaking::None:
+  case RobotBreaking::Up:
       break;
   }
 

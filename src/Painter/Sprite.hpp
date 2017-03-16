@@ -55,8 +55,12 @@ class Sprite {
 
   static void UseTexture();
   static void Load();
+private:
   static VectorF Coordinates(Name sprite, VertexPosition vertexPosition,
                              int offset = 0);
+public:
+
+  static std::array<VectorF, 4> Coordinates(Name sprite, int offset = 0);
 
  private:
   static TexturePtr texture;

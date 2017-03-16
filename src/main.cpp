@@ -1,4 +1,6 @@
 #include <iostream>
+#include <random>
+#include <ctime>
 
 #include <SDL2/SDL.h>
 
@@ -17,10 +19,14 @@
 using namespace std;
 
 int main() {
+  std::srand(std::time(0));
+
+  SizeI beginSize{1280,720};
+
   PainterGL2 painter{};
-  SDL_OpenGL sdl{painter, {2, 1}, {1280,720}};
+  SDL_OpenGL sdl{painter, {2, 1}, beginSize};
   CameraGL2 camera{[&](){return sdl.size();}};
-  Controler c([&](){sdl.stop();}, camera);
+  Controler c([&](){sdl.stop();}, camera, {beginSize.x, beginSize.y});
   painter.SetUp();
 
   c.Load();
