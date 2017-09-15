@@ -22,6 +22,7 @@ public:
     void Load();
 
     static Font Neuropol48;
+    static Font Neuropol24;
 
 private:
     Ft ft_ptr;

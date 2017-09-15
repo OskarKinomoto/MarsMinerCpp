@@ -73,3 +73,7 @@ Thumbs.db
 
 # dolphin spam file :/
 .directory
+
+.gitignore
+
+fonts/neuropol.ttf

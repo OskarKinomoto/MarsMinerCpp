@@ -22,6 +22,7 @@ public:
     void Resize(int width, int height) override;
     float Width() const override;
     float Height() const override;
+    VectorF Size() const override;
 private:
     bool texturesEnabled = false;
     int width = 800;

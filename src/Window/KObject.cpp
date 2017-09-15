@@ -27,6 +27,11 @@ bool KObject::OnResize()
     return true;
 }
 
+void KObject::OnDestroy()
+{
+
+}
+
 void KObject::OnFocus()
 {
 

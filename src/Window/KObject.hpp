@@ -27,6 +27,8 @@ public:
 protected:
     virtual bool OnClose();
     virtual bool OnResize();
+
+    virtual void OnDestroy();
     virtual void OnFocus();
 
     virtual void AutoSize();

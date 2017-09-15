@@ -144,7 +144,12 @@ float PainterGL2::Width() const {
 }
 
 float PainterGL2::Height() const {
-  return height;
+    return height;
+}
+
+VectorF PainterGL2::Size() const
+{
+    return {width, height};
 }
 
 void PainterGL2::Gradient(PositionF start,

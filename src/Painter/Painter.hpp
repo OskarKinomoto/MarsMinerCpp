@@ -27,6 +27,8 @@ public:
     virtual float Width() const = 0;
     virtual float Height() const = 0;
 
+    virtual VectorF Size() const = 0;
+
     virtual ~PainterBase() = default;
 };
 

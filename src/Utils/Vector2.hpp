@@ -49,6 +49,7 @@ class Vector {
  public:
   Vector<T> operator+(Vector<T> b) const { return {x + b.x, y + b.y}; }
   Vector<T> operator-(Vector<T> b) const { return {x - b.x, y - b.y}; }
+  Vector<T> operator-() const { return { -x, -y }; }
 
   template <typename U>
   Vector<T> operator*(U s) const {

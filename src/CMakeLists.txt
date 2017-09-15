@@ -46,6 +46,7 @@ SET(MAIN_SOURCES
   Window/KObject.cpp
   Window/Surface.cpp
   Window/Widget.cpp
+  Window/WPainter.cpp
   )
 
 SET(MAIN_HEADERS

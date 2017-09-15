@@ -1,6 +1,7 @@
 #include "FreeType.hpp"
 
 Font FreeType::Neuropol48;
+Font FreeType::Neuropol24;
 
 FreeType::FreeType() : buf(new uchar[500 * 100 * modeBit]) {
   FT_Library ft = nullptr;
@@ -14,5 +15,6 @@ FreeType::FreeType() : buf(new uchar[500 * 100 * modeBit]) {
 FreeType::~FreeType() {}
 
 void FreeType::Load() {
-  Neuropol48 = Font{ft_ptr, "fonts/neuropol.ttf", 48};
+    Neuropol48 = Font{ft_ptr, "fonts/neuropol.ttf", 48};
+    Neuropol24 = Font{ft_ptr, "fonts/neuropol.ttf", 24};
 }
